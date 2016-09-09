@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<APLEHMStatistics xmlns="http://schemas.microsoft.com/dynamics/2008/01/documents/APLEHMStatistics">
+  <APLEHMStatisticsTable class="entity">
+    <RegNum>REGNUM</RegNum>
+    <RukId>RUKID</RukId>
+    <SalesId>SO000003</SalesId>
+    <SalesMode>1</SalesMode>
+    <SeqNum>1</SeqNum>
+    <User>CAAH</User>
+    <VersionId>1</VersionId>
+    <APLEHMStatisticsLine class="entity">
+      <DeliveryDate>2016-02-04</DeliveryDate>
+      <ItemId>101A005</ItemId>
+      <ItemType>A</ItemType>
+      <NPLPackId>NPLPACKID</NPLPackId>
+      <Price>999.99000000000000000000</Price>
+      <Qty>9.90</Qty>
+      <SalesId>SO000003</SalesId>
+      <SeqNum>1</SeqNum>
+      <TaxValue>25.00000</TaxValue>
+      <VersionId>1</VersionId>
+    </APLEHMStatisticsLine>
+    <APLEHMStatisticsLine class="entity">
+      <DeliveryDate>2016-02-22</DeliveryDate>
+      <ItemId>2000245</ItemId>
+      <ItemType>B</ItemType>
+      <NPLPackId>NPLPACKID</NPLPackId>
+      <Price>888.45600000000000000000</Price>
+      <Qty>78.25</Qty>
+      <SalesId>SO000009</SalesId>
+      <SeqNum>1</SeqNum>
+      <TaxValue>15.00000</TaxValue>
+      <VersionId>1</VersionId>
+    </APLEHMStatisticsLine>
+  </APLEHMStatisticsTable>
+  <APLEHMStatisticsTable class="entity">
+    <RegNum>REGNUM</RegNum>
+    <RukId>RUKID</RukId>
+    <SalesId>SO000004</SalesId>
+    <SalesMode>1</SalesMode>
+    <SeqNum>1</SeqNum>
+    <User>CAAH</User>
+    <VersionId>1</VersionId>
+    <APLEHMStatisticsLine class="entity">
+      <DeliveryDate>2016-02-04</DeliveryDate>
+      <ItemId>101A005</ItemId>
+      <ItemType>A</ItemType>
+      <NPLPackId>NPLPACKID</NPLPackId>
+      <Price>999.99000000000000000000</Price>
+      <Qty>9.90</Qty>
+      <SalesId>SO000003</SalesId>
+      <SeqNum>1</SeqNum>
+      <TaxValue>25.00000</TaxValue>
+      <VersionId>1</VersionId>
+    </APLEHMStatisticsLine>
+    <APLEHMStatisticsLine class="entity">
+      <DeliveryDate>2016-02-22</DeliveryDate>
+      <ItemId>2000245</ItemId>
+      <ItemType>B</ItemType>
+      <NPLPackId>NPLPACKID</NPLPackId>
+      <Price>888.45600000000000000000</Price>
+      <Qty>78.25</Qty>
+      <SalesId>SO000009</SalesId>
+      <SeqNum>1</SeqNum>
+      <TaxValue>15.00000</TaxValue>
+      <VersionId>1</VersionId>
+    </APLEHMStatisticsLine>
+  </APLEHMStatisticsTable>
+</APLEHMStatistics>

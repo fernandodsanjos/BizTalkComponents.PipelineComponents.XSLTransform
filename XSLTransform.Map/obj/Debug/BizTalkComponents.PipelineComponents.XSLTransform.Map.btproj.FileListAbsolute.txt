@@ -3,3 +3,7 @@ C:\work\BizTalkComponents.PipelineComponents\BizTalkComponents.PipelineComponent
 C:\work\BizTalkComponents.PipelineComponents\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform.Map\bin\Debug\BizTalkComponents.PipelineComponents.XSLTransform.Schema.dll
 C:\work\BizTalkComponents.PipelineComponents\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform.Map\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.Map.dll
 C:\work\BizTalkComponents.PipelineComponents\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform.Map\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.Map.pdb
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform.Map\bin\Debug\BizTalkComponents.PipelineComponents.XSLTransform.Map.dll
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform.Map\bin\Debug\BizTalkComponents.PipelineComponents.XSLTransform.Map.pdb
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform.Map\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.Map.dll
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform.Map\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.Map.pdb

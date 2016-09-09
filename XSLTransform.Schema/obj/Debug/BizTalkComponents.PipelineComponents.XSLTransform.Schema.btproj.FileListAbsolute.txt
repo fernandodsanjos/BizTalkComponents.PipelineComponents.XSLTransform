@@ -2,3 +2,7 @@ C:\work\BizTalkComponents.PipelineComponents\BizTalkComponents.PipelineComponent
 C:\work\BizTalkComponents.PipelineComponents\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform.Schema\bin\Debug\BizTalkComponents.PipelineComponents.XSLTransform.Schema.pdb
 C:\work\BizTalkComponents.PipelineComponents\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform.Schema\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.Schema.dll
 C:\work\BizTalkComponents.PipelineComponents\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform.Schema\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.Schema.pdb
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform.Schema\bin\Debug\BizTalkComponents.PipelineComponents.XSLTransform.Schema.dll
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform.Schema\bin\Debug\BizTalkComponents.PipelineComponents.XSLTransform.Schema.pdb
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform.Schema\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.Schema.dll
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform.Schema\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.Schema.pdb

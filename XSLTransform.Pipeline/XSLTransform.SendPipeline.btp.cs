@@ -28,7 +28,7 @@ namespace BizTalkComponents.PipelineComponents
 "ageId=\"9d0e4108-4cce-4536-83fa-4a5040674ad6\" />      <Components />    </Stage>  </Stages></Document"+
 ">";
         
-        private const string _versionDependentGuid = "7a2a823d-9468-497a-813d-de6bdc2aaec1";
+        private const string _versionDependentGuid = "fecd8f5a-6cff-4369-86e0-6dd145a9a259";
         
         public XSLTransform_SendPipeline()
         {

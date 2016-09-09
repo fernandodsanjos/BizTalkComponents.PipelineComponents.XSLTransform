@@ -1,0 +1,5 @@
+﻿<ns0:Item xmlns:ns0="http://BizTalkComponents.PipelineComponents.MLDocument">
+      <Id>Id_2</Id>
+      <Name>Second Item</Name>
+      <Qty>20</Qty>
+    </ns0:Item>

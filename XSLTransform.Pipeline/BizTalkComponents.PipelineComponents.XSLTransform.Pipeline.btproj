@@ -39,6 +39,9 @@
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BizTalkComponents.PipelineComponents.XMLMLDisassembler">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft BizTalk Server 2013 R2\Pipeline Components\BizTalkComponents.PipelineComponents.XMLMLDisassembler.dll</HintPath>
+    </Reference>
     <Reference Include="BizTalkComponents.PipelineComponents.XSLTransform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=125992fa495df8bf, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\BizTalkComponents.PipelineComponents.XSLTransform\v4.0_1.0.0.0__125992fa495df8bf\BizTalkComponents.PipelineComponents.XSLTransform.dll</HintPath>

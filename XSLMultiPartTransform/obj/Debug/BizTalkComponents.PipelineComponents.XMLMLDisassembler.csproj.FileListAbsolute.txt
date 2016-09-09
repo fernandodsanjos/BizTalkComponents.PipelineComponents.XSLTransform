@@ -1,0 +1,4 @@
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XSLMultiPartTransform\bin\Debug\BizTalkComponents.PipelineComponents.XMLMLDisassembler.dll
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XSLMultiPartTransform\bin\Debug\BizTalkComponents.PipelineComponents.XMLMLDisassembler.pdb
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XSLMultiPartTransform\obj\Debug\BizTalkComponents.PipelineComponents.XMLMLDisassembler.dll
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XSLMultiPartTransform\obj\Debug\BizTalkComponents.PipelineComponents.XMLMLDisassembler.pdb

@@ -1,0 +1,10 @@
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLExtDisassembler\bin\Debug\BizTalkComponents.PipelineComponents.XMLENDisassembler.dll
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLExtDisassembler\bin\Debug\BizTalkComponents.PipelineComponents.XMLENDisassembler.pdb
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLExtDisassembler\obj\Debug\BizTalkComponents.PipelineComponents.XMLENDisassembler.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLExtDisassembler\obj\Debug\BizTalkComponents.PipelineComponents.XMLENDisassembler.dll
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLExtDisassembler\obj\Debug\BizTalkComponents.PipelineComponents.XMLENDisassembler.pdb
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLENDisassembler\bin\Debug\BizTalkComponents.PipelineComponents.XMLENDisassembler.dll
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLENDisassembler\bin\Debug\BizTalkComponents.PipelineComponents.XMLENDisassembler.pdb
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLENDisassembler\obj\Debug\BizTalkComponents.PipelineComponents.XMLENDisassembler.dll
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLENDisassembler\obj\Debug\BizTalkComponents.PipelineComponents.XMLENDisassembler.pdb
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLENDisassembler\obj\Debug\BizTalkComponents.PipelineComponents.XMLENDisassembler.csprojResolveAssemblyReference.cache
