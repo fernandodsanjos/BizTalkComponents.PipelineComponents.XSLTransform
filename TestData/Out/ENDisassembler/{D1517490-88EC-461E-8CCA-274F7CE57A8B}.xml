@@ -1,0 +1,10 @@
+﻿<ns1:Child xmlns:ns1="http://BizTalkComponents.PipelineComponents.ChildSchema">
+    <Name>Name_0</Name>
+    <Id>child2</Id>
+    <ns2:Transaction Id="tran3" xmlns:ns2="http://BizTalkComponents.PipelineComponents.TransactionsSchema">
+      <Name>Name_0</Name>
+    </ns2:Transaction>
+<ns2:Transaction Id="tran4" xmlns:ns2="http://BizTalkComponents.PipelineComponents.TransactionsSchema">
+      <Name>Name_0</Name>
+    </ns2:Transaction>
+  </ns1:Child>

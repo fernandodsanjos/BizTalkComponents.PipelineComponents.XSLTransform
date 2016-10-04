@@ -1,4 +1,0 @@
-C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLENDisassembler.Schemas\bin\Debug\BizTalkComponents.PipelineComponents.XMLENDisassembler.Schemas.dll
-C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLENDisassembler.Schemas\bin\Debug\BizTalkComponents.PipelineComponents.XMLENDisassembler.Schemas.pdb
-C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLENDisassembler.Schemas\obj\Debug\BizTalkComponents.PipelineComponents.XMLENDisassembler.Schemas.dll
-C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLENDisassembler.Schemas\obj\Debug\BizTalkComponents.PipelineComponents.XMLENDisassembler.Schemas.pdb

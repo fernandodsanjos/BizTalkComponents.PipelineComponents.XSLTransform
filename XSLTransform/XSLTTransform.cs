@@ -130,7 +130,7 @@ namespace BizTalkComponents.PipelineComponents
             Context ext = null;
             SchemaMetadata targetSchema = targetSchema = map.TargetSchemas[0];
 
-                
+               
             // targetSchema.SchemaName => MessageType
             //targetSchema.ReflectedType.AssemblyQualifiedName => FullyQualified
               

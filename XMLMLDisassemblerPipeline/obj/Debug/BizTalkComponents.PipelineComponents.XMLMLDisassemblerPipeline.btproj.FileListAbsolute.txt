@@ -1,5 +1,0 @@
-C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLMLDisassemblerPipeline\bin\Debug\BizTalkComponents.PipelineComponents.XMLMLDisassembler.dll
-C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLMLDisassemblerPipeline\obj\Debug\BizTalkComponents.PipelineComponents.XMLMLDisassemblerPipeline.dll
-C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLMLDisassemblerPipeline\obj\Debug\BizTalkComponents.PipelineComponents.XMLMLDisassemblerPipeline.pdb
-C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLMLDisassemblerPipeline\bin\Debug\BizTalkComponents.PipelineComponents.XMLMLDisassemblerPipeline.dll
-C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XMLMLDisassemblerPipeline\bin\Debug\BizTalkComponents.PipelineComponents.XMLMLDisassemblerPipeline.pdb

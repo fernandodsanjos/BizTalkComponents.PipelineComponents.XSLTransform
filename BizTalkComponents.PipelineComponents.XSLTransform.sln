@@ -11,12 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizTalkComponents.PipelineC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizTalkComponents.PipelineComponents.XSLTransform.Map", "XSLTransform.Map\BizTalkComponents.PipelineComponents.XSLTransform.Map.btproj", "{84DD6CE3-AEB1-4B64-AC98-2A9DE0032ED9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizTalkComponents.PipelineComponents.XMLMLDisassembler", "XSLMultiPartTransform\BizTalkComponents.PipelineComponents.XMLMLDisassembler.csproj", "{A18C679C-4B48-41C2-9113-B2D5D5B6CF5C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizTalkComponents.PipelineComponents.XMLMLDisassemblerPipeline", "XMLMLDisassemblerPipeline\BizTalkComponents.PipelineComponents.XMLMLDisassemblerPipeline.btproj", "{14DC855C-EA19-47DE-A3E4-9A832430DC86}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizTalkComponents.PipelineComponents.XMLMLDisassembler.Schemas", "XMLMLDisassemblerSchemas\BizTalkComponents.PipelineComponents.XMLMLDisassembler.Schemas.btproj", "{D0AC3CE1-65BD-46A2-89C1-045485263738}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizTalkComponents.PipelineComponents.XMLENDisassembler", "XMLENDisassembler\BizTalkComponents.PipelineComponents.XMLENDisassembler.csproj", "{186A69AF-BEED-46ED-BBAC-EE822E9144A2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizTalkComponents.PipelineComponents.XMLENDisassemblerPipeline", "XMLNEDisassemblerPipeline\BizTalkComponents.PipelineComponents.XMLENDisassemblerPipeline.btproj", "{F873A6C6-A0F5-47CF-B131-0A1E1A4AD1D0}"
@@ -51,22 +45,6 @@ Global
 		{84DD6CE3-AEB1-4B64-AC98-2A9DE0032ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84DD6CE3-AEB1-4B64-AC98-2A9DE0032ED9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84DD6CE3-AEB1-4B64-AC98-2A9DE0032ED9}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{A18C679C-4B48-41C2-9113-B2D5D5B6CF5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A18C679C-4B48-41C2-9113-B2D5D5B6CF5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A18C679C-4B48-41C2-9113-B2D5D5B6CF5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A18C679C-4B48-41C2-9113-B2D5D5B6CF5C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{14DC855C-EA19-47DE-A3E4-9A832430DC86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14DC855C-EA19-47DE-A3E4-9A832430DC86}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14DC855C-EA19-47DE-A3E4-9A832430DC86}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{14DC855C-EA19-47DE-A3E4-9A832430DC86}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14DC855C-EA19-47DE-A3E4-9A832430DC86}.Release|Any CPU.Build.0 = Release|Any CPU
-		{14DC855C-EA19-47DE-A3E4-9A832430DC86}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{D0AC3CE1-65BD-46A2-89C1-045485263738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0AC3CE1-65BD-46A2-89C1-045485263738}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0AC3CE1-65BD-46A2-89C1-045485263738}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{D0AC3CE1-65BD-46A2-89C1-045485263738}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0AC3CE1-65BD-46A2-89C1-045485263738}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D0AC3CE1-65BD-46A2-89C1-045485263738}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{186A69AF-BEED-46ED-BBAC-EE822E9144A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{186A69AF-BEED-46ED-BBAC-EE822E9144A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{186A69AF-BEED-46ED-BBAC-EE822E9144A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
