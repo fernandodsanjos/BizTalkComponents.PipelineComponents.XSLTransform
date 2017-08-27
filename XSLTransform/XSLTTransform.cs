@@ -22,14 +22,17 @@ namespace BizTalkComponents.PipelineComponents
     /// <summary>
     ///  Transforms original message stream using streaming scalable transformation via provided map specification.
     /// </summary>
+ 
     [ComponentCategory(CategoryTypes.CATID_PipelineComponent)]
     [ComponentCategory(CategoryTypes.CATID_Any)]
-    [ComponentCategory(CategoryTypes.CATID_Decoder)]
-    [ComponentCategory(CategoryTypes.CATID_Encoder)]
     [System.Runtime.InteropServices.Guid("35A34C0D-8D73-45fd-960D-DB365CD56371")]
     public partial class XSLTTransform : IBaseComponent
     {
+        private PortDirection m_portDirection;
+
         private string _mapName = "";
+        private string _parameters = "";
+
         private const string _systemPropertiesNamespace = "http://schemas.microsoft.com/BizTalk/2003/system-properties";
         /// <summary>
         /// One or more piped Map specification to be applied to original message.
@@ -42,10 +45,22 @@ namespace BizTalkComponents.PipelineComponents
             set { _mapName = value; }
         }
 
+        [Description("One or more static parameters in the format [name]=[value], use pipe to specify multiple parameters")]
+        public string Parameters
+        {
+            get { return _parameters; }
+            set { _parameters = value; }
+        }
+
         #region IComponent Members
 
         public IBaseMessage Execute(IPipelineContext pContext, IBaseMessage pInMsg)
         {
+            string stageID = pContext.StageID.ToString("D");
+            m_portDirection = PortDirection.send;
+            if(stageID == CategoryTypes.CATID_Decoder || stageID == CategoryTypes.CATID_Validate || stageID == CategoryTypes.CATID_PartyResolver)
+                m_portDirection = PortDirection.receive;
+
             if (!string.IsNullOrEmpty(_mapName))
             {
                 MarkableForwardOnlyEventingReadStream stream =
@@ -86,6 +101,22 @@ namespace BizTalkComponents.PipelineComponents
 
         #endregion
 
+        internal void AddParameters(XsltArgumentList args)
+        {
+            string[] parametersArray = _parameters.Split(new char[] { '|' }, StringSplitOptions.None);
+
+            foreach (var parameter in parametersArray)
+            {
+                string[] parameterArray = parameter.Split(new char[] { '=' }, StringSplitOptions.None);
+
+                if(parameterArray.Length == 2)
+                {
+                    args.AddParam(parameterArray[0], "", parameterArray[1]);
+                }
+            }
+
+        }
+        
         internal TransformMetaData FindFirstMapMatch(string message)
         {
             string[] mapsArray = _mapName.Split(new char[] { '|' }, StringSplitOptions.None);
@@ -96,6 +127,7 @@ namespace BizTalkComponents.PipelineComponents
                 try
                 {
                     Type mapType = Type.GetType(mapsArray[i], true);
+
                     TransformMetaData map = TransformMetaData.For(mapType);
 
                     SchemaMetadata sourceSchema = map.SourceSchemas[0];
@@ -125,15 +157,14 @@ namespace BizTalkComponents.PipelineComponents
         /// <returns></returns>
         internal Stream TransformMessage(Stream inputStream, TransformMetaData map, IBaseMessage pInMsg)
         {
-            BTSXslTransform transform = null;
+            
             XsltArgumentList args = null;
             Context ext = null;
             SchemaMetadata targetSchema = targetSchema = map.TargetSchemas[0];
 
-               
-            // targetSchema.SchemaName => MessageType
-            //targetSchema.ReflectedType.AssemblyQualifiedName => FullyQualified
-              
+            string portname = String.Empty;
+
+            
             //It is possible to add a param but then you you need to work arounds in the map
             // map.ArgumentList.AddParam
             
@@ -143,7 +174,7 @@ namespace BizTalkComponents.PipelineComponents
 
             try
             {
-                transform = map.StreamingTransform;
+               
 
                 ext = new Context();
 
@@ -154,8 +185,17 @@ namespace BizTalkComponents.PipelineComponents
                     string value = pInMsg.Context.ReadAt(i, out name, out ns).ToString();
                     ext.Add(name, value, ns);
 
+                    if (m_portDirection == PortDirection.receive && name == "ReceivePortName")
+                    {
+                        portname = value;
+                    }
+                    else if (m_portDirection == PortDirection.send && name == "SPName")
+                    {
+                        portname = value;
+                    }
+
                 }
-                //MessageID is not located in the context
+                
                 //It is possible to add any information that should be available from the map
                 ext.Add("MessageID", pInMsg.MessageID.ToString());
 
@@ -163,10 +203,19 @@ namespace BizTalkComponents.PipelineComponents
                 args = new XsltArgumentList();
                 //args.AddExtensionObject("http://www.w3.org/1999/XSL/Transform", ext); strangely it seams i cannot use this namespace in vs 2012, but it worked in vs 2010
                 args.AddExtensionObject("urn:schemas-microsoft-com:xslt", ext);
-                
 
+                AddParameters(args);
+                
+                //2017-08-23 Added intermidiate stream as Transform kills the original stream,
+                //this is a problem if the incomming message is a enveloped message.
+                XmlTranslatorStream stm = new XmlTranslatorStream(XmlReader.Create(inputStream));
                 VirtualStream outputStream = new VirtualStream(VirtualStream.MemoryFlag.AutoOverFlowToDisk);
-                transform.Transform(inputStream, args, outputStream, new XmlUrlResolver());
+
+                XmlTextReader xmlTextReader = new XmlTextReader((TextReader)new StringReader(map.XmlContent));
+                BTSXslTransform btsXslTransform = new BTSXslTransform();
+                btsXslTransform.Load((XmlReader)xmlTextReader, new MemoryResourceResolver(portname, m_portDirection), (System.Security.Policy.Evidence)null);
+
+                btsXslTransform.Transform(stm, args, outputStream, null);
                 outputStream.Seek(0, SeekOrigin.Begin);
 
                 pInMsg.Context.Promote("MessageType", _systemPropertiesNamespace, targetSchema.SchemaName);
@@ -190,7 +239,7 @@ namespace BizTalkComponents.PipelineComponents
         public void Load(Microsoft.BizTalk.Component.Interop.IPropertyBag pb, Int32 errlog)
         {
             _mapName = PropertyBagHelper.ReadPropertyBag(pb,"MapName", _mapName);
-
+            _parameters = PropertyBagHelper.ReadPropertyBag(pb, "Parameters", _parameters);
         }
 
         /// <summary>
@@ -202,7 +251,8 @@ namespace BizTalkComponents.PipelineComponents
         public void Save(Microsoft.BizTalk.Component.Interop.IPropertyBag pb, bool fClearDirty, bool fSaveAllProperties)
         {
             PropertyBagHelper.WritePropertyBag(pb, "MapName", _mapName);
-
+            PropertyBagHelper.WritePropertyBag(pb, "Parameters", _parameters);
+            
         }
        
     }

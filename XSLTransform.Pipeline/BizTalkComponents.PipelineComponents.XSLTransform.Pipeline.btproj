@@ -39,13 +39,7 @@
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BizTalkComponents.PipelineComponents.XMLMLDisassembler">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft BizTalk Server 2013 R2\Pipeline Components\BizTalkComponents.PipelineComponents.XMLMLDisassembler.dll</HintPath>
-    </Reference>
-    <Reference Include="BizTalkComponents.PipelineComponents.XSLTransform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=125992fa495df8bf, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\BizTalkComponents.PipelineComponents.XSLTransform\v4.0_1.0.0.0__125992fa495df8bf\BizTalkComponents.PipelineComponents.XSLTransform.dll</HintPath>
-    </Reference>
+    <Reference Include="BizTalkComponents.PipelineComponents.XSLTransform, Version=1.0.0.1, Culture=neutral, PublicKeyToken=47190f56632fbc76, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.BizTalk.Pipeline.Components, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System">
       <Name>System</Name>
@@ -76,21 +70,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Pipeline Include="XSLTransform.SendPipeline.btp">
-      <TypeName>XSLTransform_SendPipeline</TypeName>
-      <Namespace>BizTalkComponents.PipelineComponents</Namespace>
-      <SubType>Task</SubType>
-    </Pipeline>
-  </ItemGroup>
-  <ItemGroup>
-    <Pipeline Include="XSLTransformReceivePipeline.btp">
-      <TypeName>XSLTransformReceivePipeline</TypeName>
-      <Namespace>BizTalkComponents.PipelineComponents</Namespace>
-      <SubType>Task</SubType>
-    </Pipeline>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Key.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Pipeline Include="Receive\XSLTransform.btp">
+      <TypeName>XSLTransform</TypeName>
+      <Namespace>BizTalkComponents.PipelineComponents.Receive</Namespace>
+      <SubType>Task</SubType>
+    </Pipeline>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Pipeline Include="Send\XSLTransform.btp">
+      <TypeName>XSLTransform</TypeName>
+      <Namespace>BizTalkComponents.PipelineComponents.Send</Namespace>
+      <SubType>Designer</SubType>
+    </Pipeline>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\BizTalk\BizTalkC.targets" />

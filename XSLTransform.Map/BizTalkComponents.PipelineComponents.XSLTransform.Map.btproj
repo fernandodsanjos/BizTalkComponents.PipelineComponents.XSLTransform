@@ -81,6 +81,10 @@
     </Map>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="inputfile.xml" />
+    <Content Include="test-include.xsl">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Map To Map.xsl">
       <SubType>Designer</SubType>
     </Content>

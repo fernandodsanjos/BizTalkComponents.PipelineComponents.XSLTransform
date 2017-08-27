@@ -8,6 +8,9 @@
     <Register>True</Register>
     <RestartHostInstances>False</RestartHostInstances>
   </PropertyGroup>
+  <PropertyGroup>
+    <ProjectView>ProjectFiles</ProjectView>
+  </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{EF7E3281-CD33-11D4-8326-00C04FA0CE8D}">

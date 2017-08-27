@@ -13,3 +13,8 @@ C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.P
 C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.csprojResolveAssemblyReference.cache
 C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.dll
 C:\Users\Administrator\Documents\Visual Studio 2013\Projects\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.pdb
+C:\work\BizTalkComponents.PipelineComponents\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\bin\Debug\BizTalkComponents.PipelineComponents.XSLTransform.dll
+C:\work\BizTalkComponents.PipelineComponents\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\bin\Debug\BizTalkComponents.PipelineComponents.XSLTransform.pdb
+C:\work\BizTalkComponents.PipelineComponents\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.csprojResolveAssemblyReference.cache
+C:\work\BizTalkComponents.PipelineComponents\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.dll
+C:\work\BizTalkComponents.PipelineComponents\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.pdb

@@ -7,6 +7,8 @@ namespace BizTalkComponents.PipelineComponents {
         
         private const string _strMap = @"<?xml version=""1.0"" encoding=""UTF-16""?>
 <xsl:stylesheet xmlns:xsl=""http://www.w3.org/1999/XSL/Transform"" xmlns:msxsl=""urn:schemas-microsoft-com:xslt"" xmlns:var=""http://schemas.microsoft.com/BizTalk/2003/var"" exclude-result-prefixes=""msxsl var"" version=""1.0"" xmlns:ns0=""http://XSLTransform.Schema.Schema"">
+  <xsl:include href=""test-include.xsl""/>
+  <xsl:param name=""static""/>
   <xsl:output omit-xml-declaration=""yes"" method=""xml"" version=""1.0"" />
   <xsl:template match=""/"">
     <xsl:apply-templates select=""/ns0:MotherOf_x0020_ALLRoots"" />
@@ -15,7 +17,7 @@ namespace BizTalkComponents.PipelineComponents {
     <ns0:Targhet>
       <Record>
         <ID>
-          <xsl:value-of select=""Record/ID/text()"" />
+          <xsl:call-template name=""include""/><xsl:value-of select=""Record/ID/text()"" />|<xsl:value-of select=""$static""/>
         </ID>
         <MessageID>
           <xsl:choose>
