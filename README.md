@@ -50,5 +50,7 @@ So all you have to do is make sure that the include file is imported in the same
 ## Limitations
 One limitation is that the features cannot be used in a orchestration.
 
+And yes it means you will have to get your hands dirty and use xslt :-)<br>
+
 ## +++
 As XSLTransform finds the map by assembly fullname, you can have multiple maps in the send pipeline that has the same root node and namespace, the component will find the map that matches the specified assembly fullname.
