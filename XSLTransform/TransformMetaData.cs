@@ -26,6 +26,7 @@ namespace BizTalkComponents.PipelineComponents
             
        }
 
+        public string AssemblyQualifiedName { get; set; }
         public XsltArgumentList ArgumentList
         {
             get
