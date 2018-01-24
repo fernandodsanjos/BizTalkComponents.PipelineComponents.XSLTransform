@@ -82,6 +82,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="inputfile.xml" />
+    <Map Include="Map To Map - simple.btm">
+      <SubType>Task</SubType>
+      <TypeName>Map_To_Map_simple</TypeName>
+      <Namespace>BizTalkComponents.PipelineComponents</Namespace>
+    </Map>
     <Content Include="test-include.xsl">
       <SubType>Designer</SubType>
     </Content>

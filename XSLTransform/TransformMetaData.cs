@@ -17,7 +17,7 @@ namespace BizTalkComponents.PipelineComponents
         private SchemaMetadata[] _sourceSchemas;
         private SchemaMetadata[] _targetSchemas;
 
-        public string XmlContent { 
+        public  string XmlContent { 
             
             get
             {
@@ -25,7 +25,7 @@ namespace BizTalkComponents.PipelineComponents
             }
             
        }
-
+       
         public XsltArgumentList ArgumentList
         {
             get
@@ -61,6 +61,7 @@ namespace BizTalkComponents.PipelineComponents
         internal TransformMetaData(Type transformBaseType)
         {
             this._transformBase = (TransformBase)Activator.CreateInstance(transformBaseType);
+            
             this._xmlDecl = TransformMetaData._getXmlDeclaration(this._transformBase);
 
         }
@@ -121,5 +122,7 @@ namespace BizTalkComponents.PipelineComponents
             string standalone = xmlNode.Attributes.GetNamedItem("standalone") == null ? "no" : xmlNode.Attributes.GetNamedItem("standalone").Value;
             return xmlDocument.CreateXmlDeclaration(version, encoding, standalone);
         }
+
+        
     }
 }

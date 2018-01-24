@@ -200,7 +200,7 @@ namespace BizTalkComponents.PipelineComponents
                 ext.Add("MessageID", pInMsg.MessageID.ToString());
 
 
-                args = new XsltArgumentList();
+                args = map.ArgumentList;
                 //args.AddExtensionObject("http://www.w3.org/1999/XSL/Transform", ext); strangely it seams i cannot use this namespace in vs 2012, but it worked in vs 2010
                 args.AddExtensionObject("urn:schemas-microsoft-com:xslt", ext);
 
