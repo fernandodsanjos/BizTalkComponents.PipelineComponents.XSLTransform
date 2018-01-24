@@ -72,17 +72,19 @@
   <ItemGroup>
     <None Include="Key.snk" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Pipeline Include="Receive\XSLTransform.btp">
-      <SubType>Task</SubType>
       <TypeName>XSLTransform</TypeName>
       <Namespace>BizTalkComponents.PipelineComponents.Receive</Namespace>
-    </Pipeline>
-    <Pipeline Include="Send\XSLTransform.btp">
       <SubType>Task</SubType>
+    </Pipeline>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Pipeline Include="Send\XSLTransform.btp">
       <TypeName>XSLTransform</TypeName>
       <Namespace>BizTalkComponents.PipelineComponents.Send</Namespace>
+      <SubType>Designer</SubType>
     </Pipeline>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

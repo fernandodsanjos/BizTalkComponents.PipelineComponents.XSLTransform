@@ -28,11 +28,6 @@ namespace BizTalkComponents.PipelineComponents
     [System.Runtime.InteropServices.Guid("35A34C0D-8D73-45fd-960D-DB365CD56371")]
     public partial class XSLTTransform : IBaseComponent
     {
-        /// <summary>
-        /// Contains all retrieved and compiled transforms, key is AssemblyQualifiedName of the specific map
-        /// </summary>
-        private static Dictionary<string, BTSXslTransform> transforms = new Dictionary<string, BTSXslTransform>();
-
         private PortDirection m_portDirection;
 
         private string _mapName = "";
@@ -121,82 +116,26 @@ namespace BizTalkComponents.PipelineComponents
             }
 
         }
-
-        internal BTSXslTransform FindTransform(TransformMetaData metadata, IBaseMessageContext context)
-        {
-            string[] mapsArray = _mapName.Split(new char[] { '|' }, StringSplitOptions.None);
-
-            BTSXslTransform transform = null;
-
-            lock (transforms)
-            {
-                transforms.TryGetValue(metadata.AssemblyQualifiedName, out transform);
-
-            }
-
-            
-
-            if (transform == null)
-            {
-                XmlTextReader xmlTextReader = new XmlTextReader((TextReader)new StringReader(metadata.XmlContent));
-                BTSXslTransform btsXslTransform = new BTSXslTransform();
-
-                string portname = String.Empty;
-
-                for (int x = 0; x < context.CountProperties; x++)
-                {
-                    string name;
-                    string ns;
-
-                    string value = context.ReadAt(x, out name, out ns).ToString();
-
-
-                    if (m_portDirection == PortDirection.receive && name == "ReceivePortName")
-                    {
-                        portname = value;
-                    }
-                    else if (m_portDirection == PortDirection.send && name == "SPName")
-                    {
-                        portname = value;
-                    }
-
-                }
-
-                btsXslTransform.Load((XmlReader)xmlTextReader, new MemoryResourceResolver(portname, m_portDirection), (System.Security.Policy.Evidence)null);
-
-                lock (transforms)
-                {
-                    transforms.Add(metadata.AssemblyQualifiedName, btsXslTransform);
-                    transform = btsXslTransform;
-                }
-
-
-            }
-
-
-            return transform;
-
-        }
-
+        
         internal TransformMetaData FindFirstMapMatch(string message)
         {
             string[] mapsArray = _mapName.Split(new char[] { '|' }, StringSplitOptions.None);
-            
-           
+            TransformMetaData mapMatch = null;
+
             for (int i = 0; i < mapsArray.Length; i++)
             {
                 try
                 {
                     Type mapType = Type.GetType(mapsArray[i], true);
-                    
+
                     TransformMetaData map = TransformMetaData.For(mapType);
-                   
+
                     SchemaMetadata sourceSchema = map.SourceSchemas[0];
 
                     if (sourceSchema.SchemaName == message)
                     {
-                        map.AssemblyQualifiedName = mapType.AssemblyQualifiedName;
-                        return map;
+                        mapMatch = map;
+                        break;
                     }
                 }
                 catch (Exception ex)
@@ -207,7 +146,7 @@ namespace BizTalkComponents.PipelineComponents
 
             }
 
-            return (TransformMetaData)null;
+            return mapMatch;
 
         }
 
@@ -221,7 +160,6 @@ namespace BizTalkComponents.PipelineComponents
             
             XsltArgumentList args = null;
             Context ext = null;
-           
             SchemaMetadata targetSchema = targetSchema = map.TargetSchemas[0];
 
             string portname = String.Empty;
@@ -272,14 +210,11 @@ namespace BizTalkComponents.PipelineComponents
                 //this is a problem if the incomming message is a enveloped message.
                 XmlTranslatorStream stm = new XmlTranslatorStream(XmlReader.Create(inputStream));
                 VirtualStream outputStream = new VirtualStream(VirtualStream.MemoryFlag.AutoOverFlowToDisk);
-                /*
-                2017-10-06 moved to FindTransform function to use cached transform ..
+
                 XmlTextReader xmlTextReader = new XmlTextReader((TextReader)new StringReader(map.XmlContent));
                 BTSXslTransform btsXslTransform = new BTSXslTransform();
                 btsXslTransform.Load((XmlReader)xmlTextReader, new MemoryResourceResolver(portname, m_portDirection), (System.Security.Policy.Evidence)null);
-                */
 
-                BTSXslTransform btsXslTransform  = FindTransform(map, pInMsg.Context);
                 btsXslTransform.Transform(stm, args, outputStream, null);
                 outputStream.Seek(0, SeekOrigin.Begin);
 
