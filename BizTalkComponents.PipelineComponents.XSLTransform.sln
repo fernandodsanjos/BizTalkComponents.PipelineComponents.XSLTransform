@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizTalkComponents.PipelineC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizTalkComponents.PipelineComponents.XSLTransform.Map", "XSLTransform.Map\BizTalkComponents.PipelineComponents.XSLTransform.Map.btproj", "{84DD6CE3-AEB1-4B64-AC98-2A9DE0032ED9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizTalkComponents.PipelineComponents.XSLTransform.Map2", "XSLTransform.Map2\BizTalkComponents.PipelineComponents.XSLTransform.Map2.btproj", "{2B23341D-8642-4A5E-96A9-3BC1A23E55D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizTalkComponents.PipelineComponents.XSLTransform.Schema2", "XSLTransform.Schema\XSLTransform.Schema2\BizTalkComponents.PipelineComponents.XSLTransform.Schema2.btproj", "{E593A956-F17F-4E79-BB49-0BFBEDDA0F64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,18 @@ Global
 		{84DD6CE3-AEB1-4B64-AC98-2A9DE0032ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84DD6CE3-AEB1-4B64-AC98-2A9DE0032ED9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84DD6CE3-AEB1-4B64-AC98-2A9DE0032ED9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{2B23341D-8642-4A5E-96A9-3BC1A23E55D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B23341D-8642-4A5E-96A9-3BC1A23E55D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B23341D-8642-4A5E-96A9-3BC1A23E55D4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{2B23341D-8642-4A5E-96A9-3BC1A23E55D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B23341D-8642-4A5E-96A9-3BC1A23E55D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B23341D-8642-4A5E-96A9-3BC1A23E55D4}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{E593A956-F17F-4E79-BB49-0BFBEDDA0F64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E593A956-F17F-4E79-BB49-0BFBEDDA0F64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E593A956-F17F-4E79-BB49-0BFBEDDA0F64}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{E593A956-F17F-4E79-BB49-0BFBEDDA0F64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E593A956-F17F-4E79-BB49-0BFBEDDA0F64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E593A956-F17F-4E79-BB49-0BFBEDDA0F64}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

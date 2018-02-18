@@ -25,6 +25,7 @@ namespace BizTalkComponents.PipelineComponents {
             <xs:sequence>
               <xs:element name=""ID"" type=""xs:string"" />
               <xs:element minOccurs=""0"" name=""MessageID"" type=""xs:string"" />
+              <xs:element minOccurs=""0"" name=""Action"" type=""xs:string"" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

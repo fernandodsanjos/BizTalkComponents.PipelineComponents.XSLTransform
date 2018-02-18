@@ -4,12 +4,12 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{84DD6CE3-AEB1-4B64-AC98-2A9DE0032ED9}</ProjectGuid>
+    <ProjectGuid>{2B23341D-8642-4A5E-96A9-3BC1A23E55D4}</ProjectGuid>
     <ProjectTypeGuids>{EF7E3281-CD33-11D4-8326-00C04FA0CE8D};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>library</OutputType>
     <GenericProcessing>true</GenericProcessing>
     <RootNamespace>BizTalkComponents.PipelineComponents</RootNamespace>
-    <AssemblyName>BizTalkComponents.PipelineComponents.XSLTransform.Map</AssemblyName>
+    <AssemblyName>BizTalkComponents.PipelineComponents.XSLTransform.Map2</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <BpelCompliance>True</BpelCompliance>
   </PropertyGroup>
@@ -39,9 +39,9 @@
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BizTalkComponents.PipelineComponents.XSLTransform.Schema, Version=1.0.0.0, Culture=neutral, PublicKeyToken=47190f56632fbc76, processorArchitecture=MSIL">
+    <Reference Include="BizTalkComponents.PipelineComponents.XSLTransform.Schema2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=47190f56632fbc76, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\BizTalkComponents.PipelineComponents.XSLTransform.Schema\v4.0_1.0.0.0__47190f56632fbc76\BizTalkComponents.PipelineComponents.XSLTransform.Schema.dll</HintPath>
+      <HintPath>..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\BizTalkComponents.PipelineComponents.XSLTransform.Schema2\v4.0_1.0.0.0__47190f56632fbc76\BizTalkComponents.PipelineComponents.XSLTransform.Schema2.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -72,28 +72,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Map Include="Map To Map.btm">
-      <TypeName>XSLTransform_Map_To_Map</TypeName>
-      <Namespace>BizTalkComponents.PipelineComponents</Namespace>
-      <SubType>Task</SubType>
-    </Map>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="inputfile.xml" />
-    <Map Include="Map To Map - simple.btm">
-      <SubType>Task</SubType>
-      <TypeName>Map_To_Map_simple</TypeName>
-      <Namespace>BizTalkComponents.PipelineComponents</Namespace>
-    </Map>
-    <Content Include="test-include.xsl">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Map To Map.xsl">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Key.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Map Include="Map To Map2.btm">
+      <TypeName>Map_To_Map2</TypeName>
+      <Namespace>BizTalkComponents.PipelineComponents.XSLTransform.Map2</Namespace>
+      <SubType>Task</SubType>
+    </Map>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\BizTalk\BizTalkC.targets" />

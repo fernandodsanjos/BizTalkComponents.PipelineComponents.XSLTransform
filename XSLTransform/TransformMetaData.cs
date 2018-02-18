@@ -58,6 +58,17 @@ namespace BizTalkComponents.PipelineComponents
             }
         }
 
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as TransformMetaData);
+        }
+
+        public bool Equals(TransformMetaData obj)
+        {
+            return obj != null && obj.SourceSchemas[0] == this.SourceSchemas[0];
+        }
+
+
         internal TransformMetaData(Type transformBaseType)
         {
             this._transformBase = (TransformBase)Activator.CreateInstance(transformBaseType);

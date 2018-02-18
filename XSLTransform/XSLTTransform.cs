@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Resources;
 using System.Drawing;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Reflection;
 using System.ComponentModel;
 using System.Text;
@@ -28,12 +29,26 @@ namespace BizTalkComponents.PipelineComponents
     [System.Runtime.InteropServices.Guid("35A34C0D-8D73-45fd-960D-DB365CD56371")]
     public partial class XSLTTransform : IBaseComponent
     {
+        public static ConcurrentDictionary<TransformMetaData, BTSXslTransform> transforms = null;
+
         private PortDirection m_portDirection;
 
         private string _mapName = "";
         private string _parameters = "";
 
         private const string _systemPropertiesNamespace = "http://schemas.microsoft.com/BizTalk/2003/system-properties";
+
+        private ConcurrentDictionary<TransformMetaData, BTSXslTransform> Transforms
+        {
+
+            get
+            {
+                if (transforms == null)
+                    transforms = new ConcurrentDictionary<TransformMetaData, BTSXslTransform>();
+
+                return transforms;
+            }
+        }
         /// <summary>
         /// One or more piped Map specification to be applied to original message.
         /// </summary>	
@@ -66,19 +81,28 @@ namespace BizTalkComponents.PipelineComponents
                 MarkableForwardOnlyEventingReadStream stream =
                        new MarkableForwardOnlyEventingReadStream(
                            pInMsg.BodyPart.GetOriginalDataStream());
-
+                
                 string messageType = (string)pInMsg.Context.Read("MessageType", _systemPropertiesNamespace);
+                string schemaStrongName = null;
+                ContextProperty property = null;
 
-                if (messageType == String.Empty)
+                if (messageType == null)//2018-02-17 Removed String.Empty
                 {
                     stream.MarkPosition();
                     //Thanks to http://maximelabelle.wordpress.com/2010/07/08/determining-the-type-of-an-xml-message-in-a-custom-pipeline-component/
                     messageType = Microsoft.BizTalk.Streaming.Utils.GetDocType(stream);
                     stream.ResetPosition();
+
+                    property = new ContextProperty("MessageType", _systemPropertiesNamespace);
+                }
+                else if ((schemaStrongName = (string)pInMsg.Context.Read("SchemaStrongName", _systemPropertiesNamespace)) != null)
+                {
+                    property = new ContextProperty("SchemaStrongName", _systemPropertiesNamespace);
+                    messageType = schemaStrongName;
                 }
 
 
-                TransformMetaData _map = FindFirstMapMatch(messageType);
+                TransformMetaData _map = FindFirstMapMatch(property,messageType);
 
                 if (_map == null)
                 {
@@ -116,8 +140,8 @@ namespace BizTalkComponents.PipelineComponents
             }
 
         }
-        
-        internal TransformMetaData FindFirstMapMatch(string message)
+
+        internal TransformMetaData FindFirstMapMatch(ContextProperty property, string value)
         {
             string[] mapsArray = _mapName.Split(new char[] { '|' }, StringSplitOptions.None);
             TransformMetaData mapMatch = null;
@@ -128,15 +152,21 @@ namespace BizTalkComponents.PipelineComponents
                 {
                     Type mapType = Type.GetType(mapsArray[i], true);
 
-                    TransformMetaData map = TransformMetaData.For(mapType);
+                    mapMatch = TransformMetaData.For(mapType);
 
-                    SchemaMetadata sourceSchema = map.SourceSchemas[0];
+                    SchemaMetadata sourceSchema = mapMatch.SourceSchemas[0];
 
-                    if (sourceSchema.SchemaName == message)
+                    if(property.PropertyName == "SchemaStrongName" && sourceSchema.ReflectedType.AssemblyQualifiedName == value)
                     {
-                        mapMatch = map;
+                        break; 
+                    }
+                    else if(property.PropertyName == "MessageType" && sourceSchema.SchemaName == value)
+                    {
                         break;
                     }
+
+                    mapMatch = null;
+                   
                 }
                 catch (Exception ex)
                 {
@@ -200,7 +230,7 @@ namespace BizTalkComponents.PipelineComponents
                 ext.Add("MessageID", pInMsg.MessageID.ToString());
 
 
-                args = map.ArgumentList;
+                args = map.ArgumentList;//Include BizTalk extensions
                 //args.AddExtensionObject("http://www.w3.org/1999/XSL/Transform", ext); strangely it seams i cannot use this namespace in vs 2012, but it worked in vs 2010
                 args.AddExtensionObject("urn:schemas-microsoft-com:xslt", ext);
 
@@ -211,9 +241,25 @@ namespace BizTalkComponents.PipelineComponents
                 XmlTranslatorStream stm = new XmlTranslatorStream(XmlReader.Create(inputStream));
                 VirtualStream outputStream = new VirtualStream(VirtualStream.MemoryFlag.AutoOverFlowToDisk);
 
-                XmlTextReader xmlTextReader = new XmlTextReader((TextReader)new StringReader(map.XmlContent));
-                BTSXslTransform btsXslTransform = new BTSXslTransform();
-                btsXslTransform.Load((XmlReader)xmlTextReader, new MemoryResourceResolver(portname, m_portDirection), (System.Security.Policy.Evidence)null);
+                
+
+                BTSXslTransform btsXslTransform = null;
+
+                if (Transforms.ContainsKey(map))
+                {
+                    btsXslTransform = Transforms[map];
+                }
+                else
+                {
+                    btsXslTransform = new BTSXslTransform();
+                    XmlTextReader xmlTextReader = new XmlTextReader((TextReader)new StringReader(map.XmlContent));
+                    btsXslTransform.Load((XmlReader)xmlTextReader, new MemoryResourceResolver(portname, m_portDirection), (System.Security.Policy.Evidence)null);
+
+                    Transforms.TryAdd(map, btsXslTransform);
+                }
+
+
+                
 
                 btsXslTransform.Transform(stm, args, outputStream, null);
                 outputStream.Seek(0, SeekOrigin.Begin);
