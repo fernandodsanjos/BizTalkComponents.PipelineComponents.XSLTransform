@@ -30,13 +30,27 @@ namespace BizTalkComponents.PipelineComponents
     public partial class XSLTTransform : IBaseComponent
     {
         public static ConcurrentDictionary<TransformMetaData, BTSXslTransform> transforms = null;
+        //Added Map cache
+        public static ConcurrentDictionary<string,TransformMetaData> maps = null;
 
         private PortDirection m_portDirection;
 
         private string _mapName = "";
         private string _parameters = "";
-
+        
         private const string _systemPropertiesNamespace = "http://schemas.microsoft.com/BizTalk/2003/system-properties";
+
+        private ConcurrentDictionary<string,TransformMetaData> Maps
+        {
+
+            get
+            {
+                if (maps == null)
+                    maps = new ConcurrentDictionary<string,TransformMetaData>();
+
+                return maps;
+            }
+        }
 
         private ConcurrentDictionary<TransformMetaData, BTSXslTransform> Transforms
         {
@@ -91,6 +105,7 @@ namespace BizTalkComponents.PipelineComponents
                     stream.MarkPosition();
                     //Thanks to http://maximelabelle.wordpress.com/2010/07/08/determining-the-type-of-an-xml-message-in-a-custom-pipeline-component/
                     messageType = Microsoft.BizTalk.Streaming.Utils.GetDocType(stream);
+                    
                     stream.ResetPosition();
 
                     property = new ContextProperty("MessageType", _systemPropertiesNamespace);
@@ -146,6 +161,10 @@ namespace BizTalkComponents.PipelineComponents
             string[] mapsArray = _mapName.Split(new char[] { '|' }, StringSplitOptions.None);
             TransformMetaData mapMatch = null;
 
+            if (Maps.ContainsKey(value))
+                return Maps[value];
+
+            //Check MapCache
             for (int i = 0; i < mapsArray.Length; i++)
             {
                 try
@@ -158,10 +177,12 @@ namespace BizTalkComponents.PipelineComponents
 
                     if(property.PropertyName == "SchemaStrongName" && sourceSchema.ReflectedType.AssemblyQualifiedName == value)
                     {
+                        Maps.TryAdd(value, mapMatch);
                         break; 
                     }
                     else if(property.PropertyName == "MessageType" && sourceSchema.SchemaName == value)
                     {
+                        Maps.TryAdd(value, mapMatch);
                         break;
                     }
 
