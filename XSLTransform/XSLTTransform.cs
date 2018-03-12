@@ -33,7 +33,7 @@ namespace BizTalkComponents.PipelineComponents
         //Added Map cache
         public static ConcurrentDictionary<string,TransformMetaData> maps = null;
 
-        private PortDirection m_portDirection;
+       // private PortDirection m_portDirection;
 
         private string _mapName = "";
         private string _parameters = "";
@@ -85,10 +85,12 @@ namespace BizTalkComponents.PipelineComponents
 
         public IBaseMessage Execute(IPipelineContext pContext, IBaseMessage pInMsg)
         {
+            /*
             string stageID = pContext.StageID.ToString("D");
             m_portDirection = PortDirection.send;
             if(stageID == CategoryTypes.CATID_Decoder || stageID == CategoryTypes.CATID_Validate || stageID == CategoryTypes.CATID_PartyResolver)
                 m_portDirection = PortDirection.receive;
+            */
 
             if (!string.IsNullOrEmpty(_mapName))
             {
@@ -150,7 +152,10 @@ namespace BizTalkComponents.PipelineComponents
 
                 if(parameterArray.Length == 2)
                 {
+                    args.RemoveParam(parameterArray[0], "");//remove existing param, save to call remove even if the param does not exist
+
                     args.AddParam(parameterArray[0], "", parameterArray[1]);
+                    
                 }
             }
 
@@ -172,7 +177,7 @@ namespace BizTalkComponents.PipelineComponents
                     Type mapType = Type.GetType(mapsArray[i], true);
 
                     mapMatch = TransformMetaData.For(mapType);
-
+                    
                     SchemaMetadata sourceSchema = mapMatch.SourceSchemas[0];
 
                     if(property.PropertyName == "SchemaStrongName" && sourceSchema.ReflectedType.AssemblyQualifiedName == value)
@@ -236,15 +241,6 @@ namespace BizTalkComponents.PipelineComponents
                     string value = pInMsg.Context.ReadAt(i, out name, out ns).ToString();
                     ext.Add(name, value, ns);
 
-                    if (m_portDirection == PortDirection.receive && name == "ReceivePortName")
-                    {
-                        portname = value;
-                    }
-                    else if (m_portDirection == PortDirection.send && name == "SPName")
-                    {
-                        portname = value;
-                    }
-
                 }
                 
                 //It is possible to add any information that should be available from the map
@@ -253,6 +249,7 @@ namespace BizTalkComponents.PipelineComponents
 
                 args = map.ArgumentList;//Include BizTalk extensions
                 //args.AddExtensionObject("http://www.w3.org/1999/XSL/Transform", ext); strangely it seams i cannot use this namespace in vs 2012, but it worked in vs 2010
+                args.RemoveExtensionObject("urn:schemas-microsoft-com:xslt");
                 args.AddExtensionObject("urn:schemas-microsoft-com:xslt", ext);
 
                 AddParameters(args);
@@ -262,10 +259,10 @@ namespace BizTalkComponents.PipelineComponents
                 XmlTranslatorStream stm = new XmlTranslatorStream(XmlReader.Create(inputStream));
                 VirtualStream outputStream = new VirtualStream(VirtualStream.MemoryFlag.AutoOverFlowToDisk);
 
-                
+                //TODO test to add declaration and see what happens with params!!!!!!!!!!!!!!!!!!!!!!!!
 
                 BTSXslTransform btsXslTransform = null;
-
+                string str = map.Assembly;
                 if (Transforms.ContainsKey(map))
                 {
                     btsXslTransform = Transforms[map];
@@ -274,7 +271,7 @@ namespace BizTalkComponents.PipelineComponents
                 {
                     btsXslTransform = new BTSXslTransform();
                     XmlTextReader xmlTextReader = new XmlTextReader((TextReader)new StringReader(map.XmlContent));
-                    btsXslTransform.Load((XmlReader)xmlTextReader, new MemoryResourceResolver(portname, m_portDirection), (System.Security.Policy.Evidence)null);
+                    btsXslTransform.Load((XmlReader)xmlTextReader, new MemoryResourceResolver(map.Assembly), (System.Security.Policy.Evidence)null);
 
                     Transforms.TryAdd(map, btsXslTransform);
                 }

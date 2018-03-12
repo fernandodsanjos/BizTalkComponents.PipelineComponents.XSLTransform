@@ -16,6 +16,20 @@ namespace BizTalkComponents.PipelineComponents
        
         private SchemaMetadata[] _sourceSchemas;
         private SchemaMetadata[] _targetSchemas;
+        private string mapAssembly = String.Empty;
+
+        /// <summary>
+        /// Assembly of the map
+        /// </summary>
+        public string Assembly
+        {
+
+            get
+            {
+                return mapAssembly;
+            }
+
+        }
 
         public  string XmlContent { 
             
@@ -58,6 +72,11 @@ namespace BizTalkComponents.PipelineComponents
             }
         }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         public override bool Equals(object obj)
         {
             return Equals(obj as TransformMetaData);
@@ -71,6 +90,7 @@ namespace BizTalkComponents.PipelineComponents
 
         internal TransformMetaData(Type transformBaseType)
         {
+            this.mapAssembly = transformBaseType.Assembly.ToString();
             this._transformBase = (TransformBase)Activator.CreateInstance(transformBaseType);
             
             this._xmlDecl = TransformMetaData._getXmlDeclaration(this._transformBase);
