@@ -186,6 +186,9 @@ namespace BizTalkComponents.PipelineComponents
             {
                 try
                 {
+                    //When map exists in the same assembly as the pipeline you do not need to specify assembly
+                    if (mapsArray[i].Contains(",") == false)
+                        mapsArray[i] = String.Format("{0}, {1}", mapsArray[i], pipelineAssembly);
 
                     Type mapType = Type.GetType(mapsArray[i], true);
 
@@ -198,12 +201,7 @@ namespace BizTalkComponents.PipelineComponents
                     if(property.PropertyName == "SchemaStrongName" )
                     {
 
-                        Schema schema = new Schema(value);
-
-                        if (schema.AssemblyName == null)
-                            schema = new Schema(String.Format("{0}, {1}", value, pipelineAssembly));
-
-                        if(sourceSchema.ReflectedType.AssemblyQualifiedName == schema.SchemaName)
+                        if(sourceSchema.ReflectedType.AssemblyQualifiedName == value)
                         {
                             Maps.TryAdd(value, mapMatch);
                             break;
