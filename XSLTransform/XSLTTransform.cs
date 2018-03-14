@@ -17,6 +17,7 @@ using Microsoft.BizTalk.ScalableTransformation;
 using Microsoft.XLANGs.RuntimeTypes;
 using System.ComponentModel.DataAnnotations;
 using BizTalkComponents.Utils;
+using Microsoft.BizTalk.Component.Utilities;
 
 namespace BizTalkComponents.PipelineComponents
 {
@@ -35,8 +36,9 @@ namespace BizTalkComponents.PipelineComponents
 
        // private PortDirection m_portDirection;
 
-        private string _mapName = "";
-        private string _parameters = "";
+        private string _mapName = String.Empty;
+        private string _parameters = String.Empty;
+        private string pipelineAssembly = String.Empty;
         
         private const string _systemPropertiesNamespace = "http://schemas.microsoft.com/BizTalk/2003/system-properties";
 
@@ -85,6 +87,8 @@ namespace BizTalkComponents.PipelineComponents
 
         public IBaseMessage Execute(IPipelineContext pContext, IBaseMessage pInMsg)
         {
+            pipelineAssembly = pContext.PipelineName.Substring(pContext.PipelineName.IndexOf(",") + 1).TrimStart();
+            
             /*
             string stageID = pContext.StageID.ToString("D");
             m_portDirection = PortDirection.send;
@@ -99,8 +103,9 @@ namespace BizTalkComponents.PipelineComponents
                            pInMsg.BodyPart.GetOriginalDataStream());
                 
                 string messageType = (string)pInMsg.Context.Read("MessageType", _systemPropertiesNamespace);
+                 
                 string schemaStrongName = null;
-                ContextProperty property = null;
+                ContextProperty property = new ContextProperty("MessageType", _systemPropertiesNamespace);
 
                 if (messageType == null)//2018-02-17 Removed String.Empty
                 {
@@ -110,12 +115,19 @@ namespace BizTalkComponents.PipelineComponents
                     
                     stream.ResetPosition();
 
-                    property = new ContextProperty("MessageType", _systemPropertiesNamespace);
+                    
                 }
                 else if ((schemaStrongName = (string)pInMsg.Context.Read("SchemaStrongName", _systemPropertiesNamespace)) != null)
                 {
-                    property = new ContextProperty("SchemaStrongName", _systemPropertiesNamespace);
-                    messageType = schemaStrongName;
+                    //In cases where XmlDocument is used in orchestration, revert to check MessageType
+                    if(schemaStrongName.StartsWith("Microsoft.XLANGs.BaseTypes.Any") == false)
+                    {
+                        property = new ContextProperty("SchemaStrongName", _systemPropertiesNamespace);
+                        messageType = schemaStrongName;
+                    }
+                   
+
+                    
                 }
 
 
@@ -174,16 +186,29 @@ namespace BizTalkComponents.PipelineComponents
             {
                 try
                 {
+
                     Type mapType = Type.GetType(mapsArray[i], true);
 
                     mapMatch = TransformMetaData.For(mapType);
                     
                     SchemaMetadata sourceSchema = mapMatch.SourceSchemas[0];
 
-                    if(property.PropertyName == "SchemaStrongName" && sourceSchema.ReflectedType.AssemblyQualifiedName == value)
+                    
+
+                    if(property.PropertyName == "SchemaStrongName" )
                     {
-                        Maps.TryAdd(value, mapMatch);
-                        break; 
+
+                        Schema schema = new Schema(value);
+
+                        if (schema.AssemblyName == null)
+                            schema = new Schema(String.Format("{0}, {1}", value, pipelineAssembly));
+
+                        if(sourceSchema.ReflectedType.AssemblyQualifiedName == schema.SchemaName)
+                        {
+                            Maps.TryAdd(value, mapMatch);
+                            break;
+                        }
+                        
                     }
                     else if(property.PropertyName == "MessageType" && sourceSchema.SchemaName == value)
                     {
