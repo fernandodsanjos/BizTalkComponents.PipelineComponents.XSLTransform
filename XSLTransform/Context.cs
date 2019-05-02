@@ -3,38 +3,59 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.BizTalk.Component.Interop;
+using Microsoft.BizTalk.Message.Interop;
 
 namespace BizTalkComponents.PipelineComponents
 {
     public class Context
     {
-        private Dictionary<string, string> lst = new Dictionary<string, string>();
+        IBaseMessageContext context = null;
+        string messageID = String.Empty;
         private const string systemPropertiesNamespace = "http://schemas.microsoft.com/BizTalk/2003/system-properties";
         //This signature does not work in the map => Read(string name,string ns = systemPropertiesNamespace)
 
+        public Context(IBaseMessageContext MessageContext,string MessageID)
+        {
+            context = MessageContext;
+            messageID = MessageID;
+        }
 
         public string Read(string name)
         {
+            if (name == "MessageID")
+                return messageID;
 
             return this.Read(name, systemPropertiesNamespace);
         }
 
         public string Read(string name, string ns)
         {
+            if (name == "MessageID" && ns == systemPropertiesNamespace)
+                return messageID;
 
-            string property = String.Empty;
+            object property = null;
 
-            lst.TryGetValue(String.Format("{0}#{1}", ns, name), out property);
+            property = context.Read(name, ns);
 
-            return property == null ? String.Empty : property;
+            return property == null ? String.Empty : property.ToString();
         }
 
-        public void Add(string name, string value, string ns = systemPropertiesNamespace)
+        public void Write(string name, string ns,string value)
         {
-            if (lst.ContainsKey(String.Format("{0}#{1}", ns, name)) == false)
-            {
-                lst.Add(String.Format("{0}#{1}", ns, name), value);
-            }
+            if (String.IsNullOrEmpty(value) || String.IsNullOrEmpty(name) || String.IsNullOrEmpty(ns) )
+                return;
+
+            context.Write(name, ns, (object)value);
+        }
+
+        public void Promote(string name, string ns, string value)
+        {
+            if (String.IsNullOrEmpty(value) || String.IsNullOrEmpty(name) || String.IsNullOrEmpty(ns))
+                return;
+
+            context.Promote(name, ns, (object)value);
+          
         }
     }
 }

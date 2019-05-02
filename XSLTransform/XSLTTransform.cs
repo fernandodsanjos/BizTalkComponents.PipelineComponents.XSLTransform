@@ -87,6 +87,7 @@ namespace BizTalkComponents.PipelineComponents
 
         public IBaseMessage Execute(IPipelineContext pContext, IBaseMessage pInMsg)
         {
+           
             pipelineAssembly = pContext.PipelineName.Substring(pContext.PipelineName.IndexOf(",") + 1).TrimStart();
             
             /*
@@ -255,20 +256,7 @@ namespace BizTalkComponents.PipelineComponents
             {
                
 
-                ext = new Context();
-
-                for (int i = 0; i < pInMsg.Context.CountProperties; i++)
-                {
-                    string name;
-                    string ns;
-                    string value = pInMsg.Context.ReadAt(i, out name, out ns).ToString();
-                    ext.Add(name, value, ns);
-
-                }
-                
-                //It is possible to add any information that should be available from the map
-                ext.Add("MessageID", pInMsg.MessageID.ToString());
-
+                ext = new Context(pInMsg.Context, pInMsg.MessageID.ToString());
 
                 args = map.ArgumentList;//Include BizTalk extensions
                 //args.AddExtensionObject("http://www.w3.org/1999/XSL/Transform", ext); strangely it seams i cannot use this namespace in vs 2012, but it worked in vs 2010
@@ -292,6 +280,7 @@ namespace BizTalkComponents.PipelineComponents
                 }
                 else
                 {
+                   
                     btsXslTransform = new BTSXslTransform();
                     XmlTextReader xmlTextReader = new XmlTextReader((TextReader)new StringReader(map.XmlContent));
                     btsXslTransform.Load((XmlReader)xmlTextReader, new MemoryResourceResolver(map.Assembly), (System.Security.Policy.Evidence)null);

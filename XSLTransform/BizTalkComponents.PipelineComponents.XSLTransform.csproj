@@ -93,6 +93,7 @@
     <Compile Include="XSLTTransform.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="BizTalkComponents.PipelineComponents.XSLTransform.nuspec" />
     <None Include="Key.snk" />
     <None Include="packages.config" />
   </ItemGroup>
