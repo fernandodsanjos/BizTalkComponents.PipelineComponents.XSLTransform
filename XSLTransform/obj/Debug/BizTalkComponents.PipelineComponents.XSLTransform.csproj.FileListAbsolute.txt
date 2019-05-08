@@ -18,3 +18,12 @@ C:\work\BizTalkComponents.PipelineComponents\BizTalkComponents.PipelineComponent
 C:\work\BizTalkComponents.PipelineComponents\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.csprojResolveAssemblyReference.cache
 C:\work\BizTalkComponents.PipelineComponents\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.dll
 C:\work\BizTalkComponents.PipelineComponents\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.pdb
+D:\work\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\bin\Debug\BizTalkComponents.PipelineComponents.XSLTransform.dll
+D:\work\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\bin\Debug\BizTalkComponents.PipelineComponents.XSLTransform.pdb
+D:\work\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\bin\Debug\Microsoft.BizTalk.Pipeline.dll
+D:\work\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\bin\Debug\Microsoft.XLANGs.BaseTypes.dll
+D:\work\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\bin\Debug\Microsoft.XLANGs.BizTalk.Engine.dll
+D:\work\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\bin\Debug\Microsoft.XLANGs.Engine.dll
+D:\work\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.csprojResolveAssemblyReference.cache
+D:\work\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.dll
+D:\work\BizTalkComponents.PipelineComponents.XSLTransform\XSLTransform\obj\Debug\BizTalkComponents.PipelineComponents.XSLTransform.pdb
