@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>BizTalkComponents.PipelineComponents.XSLTransform</id>
-    <version>1.0.2.0</version>
+    <version>1.0.3.0</version>
     <authors>Fernando Pires</authors>
     <description>BizTalkComponents.PipelineComponents.XSLTransform</description>
   </metadata>

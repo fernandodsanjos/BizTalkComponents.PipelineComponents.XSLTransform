@@ -89,7 +89,7 @@ namespace BizTalkComponents.PipelineComponents
         {
            
             pipelineAssembly = pContext.PipelineName.Substring(pContext.PipelineName.IndexOf(",") + 1).TrimStart();
-            
+
             /*
             string stageID = pContext.StageID.ToString("D");
             m_portDirection = PortDirection.send;
@@ -97,7 +97,32 @@ namespace BizTalkComponents.PipelineComponents
                 m_portDirection = PortDirection.receive;
             */
 
-            if (!string.IsNullOrEmpty(_mapName))
+            /*2019-05-20 Add map dynamically*/
+            //Microsoft.XLANGs.BaseTypes.XmlQName TransformHint = new BTS.SendPortTransformHint().QName; -- Could not use SendPortTransformHint as this would run the map in a "normal mode" and IsDynamic did not need to be set.
+            _mapName = _mapName.Trim();
+
+            //Specify dynamic map in any context with the name XSLTransform
+            string map = GetTransform(pInMsg.Context);
+
+            if (map != null)
+            {
+                if (string.IsNullOrEmpty(_mapName))
+                {
+                    _mapName = map;
+                }
+                else
+                {
+                    _mapName = String.Format("{0}|{1}", _mapName, map);//Add the map last
+                }
+            }
+
+
+
+            if (string.IsNullOrEmpty(_mapName))
+            {
+                throw new ArgumentNullException("MapName");
+            }
+            else
             {
                 MarkableForwardOnlyEventingReadStream stream =
                        new MarkableForwardOnlyEventingReadStream(
@@ -151,7 +176,24 @@ namespace BizTalkComponents.PipelineComponents
             return pInMsg;
         }
 
+        private string GetTransform(IBaseMessageContext context)
+        {
+            for (int i = 0; i < context.CountProperties; i++)
+            {
+                string name;
+                string ns;
+               
+                object obj = context.ReadAt(i, out name, out ns);
 
+                if(name == "XSLTransform")
+                {
+                    return (string)obj;
+                    
+                }
+            }
+
+            return null;
+        }
 
         #endregion
 
