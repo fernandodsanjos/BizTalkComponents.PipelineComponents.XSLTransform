@@ -31,7 +31,7 @@ Writing and Promoting to Context property is almost the same as reading one. See
 ```xslt
  <xsl:if test="function-available('msxsl:Write')">
       <xsl:variable name="WriteInvoiceID" select="msxsl:Write('InvoiceID','http://schemas',ns13:ID/text())"/>
-     <xsl:variable name="WriteCompany" select="msxsl:Promote('IsPeabCompany','http://schemas',$Company)"/>
+     <xsl:variable name="WriteCompany" select="msxsl:Promote('IsCompany','http://schemas',$Company)"/>
   </xsl:if>
  ````
 
