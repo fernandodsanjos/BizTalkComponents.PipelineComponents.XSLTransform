@@ -11,7 +11,7 @@ Make sure to use the _function-available_ as the functions does not exist in VS<
 <xsl:if test="function-available('msxsl:Write')">
 
 ## Features
-1. Read Context Properties<br/>
+1. **Read Context Properties**<br/>
 When i started, the feature i wanted the most, was the ability to read context properties from a map.<br>
 With XSLTransform you can read context properties with this syntax in xslt<br>
 
@@ -23,7 +23,7 @@ If you only specify ,name, namespace *http://schemas.microsoft.com/BizTalk/2003/
 ```xslt
 <xsl:value-of select="msxsl:Read('MessageID','http://schemas.microsoft.com/BizTalk/2003/system-properties')" />
 ````
-2. Writing And Promoting Values To Context<br/>
+2. **Writing And Promoting Values To Context**<br/>
 Sometimes you have to promote properties in a pipeline. Unfortunally to promote a value you first have to read, at least a part, of the message.<br/>
 But if you have to use a map on a port you might as well promote, or even better, write context directly from the map.<p>
 Writing and Promoting to Context property is almost the same as reading one. See example bellow.
@@ -35,7 +35,7 @@ Writing and Promoting to Context property is almost the same as reading one. See
   </xsl:if>
  ````
 
-3. Static Parameters<br/>
+3. **Static Parameters**<br/>
 You can specify static parameters in the pipeline that can then the be used in the map.
 Specify parameters in the format [name]=[value]. Again specify multiple values by using a pipe (|).
 
@@ -49,7 +49,7 @@ and then used like bellow anywhere in the map
 ```xslt
 <xsl:value-of select="$static"/>
 ````
-4. Using Includes<br/>
+4. **Using Includes**<br/>
 This was a tricky one ..<br>
 I wanted to be able to use includes as sometimes i had code that was used be multiple maps, and one change forced me to change ALL maps.
 
@@ -61,6 +61,11 @@ Includes are specified in the xslt map like this
 I wanted to enable this wo using external file paths, i solved it by importing the include xslt files as resources in BizTalk and then pick them up as a stream.
 
 So all you have to do is make sure that the include file is imported in the same application as the map.
+
+5. **Dynamic Map**<br/>
+You can use dynamic map usage by specifying a specific map, in the form of fulll qualified name, in a context property called XLSTransform. The component picks the first property with this name.
+The default is that a map i required but you can also set the property Map Required to False. Setting the property to false means that if no map is specified the message will simply be passed forward.<br/>
+Tip: _You can specify a default map and override it with the context property XLSTransform, as the context property XLSTransform will be added to the top of the list of maps to evaluate_
 
 ## Limitations
 One limitation is that the component, being a pipeline component, cannot be used in a orchestration.
