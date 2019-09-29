@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="BizTalkComponents.PipelineComponents.XSLTransform.nuspec" />
+    <None Include="Files\README.md" />
     <None Include="Key.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

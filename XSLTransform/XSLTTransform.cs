@@ -39,7 +39,8 @@ namespace BizTalkComponents.PipelineComponents
         private string _mapName = String.Empty;
         private string _parameters = String.Empty;
         private string pipelineAssembly = String.Empty;
-        
+        private bool _mapRequired = true;
+
         private const string _systemPropertiesNamespace = "http://schemas.microsoft.com/BizTalk/2003/system-properties";
 
         private ConcurrentDictionary<string,TransformMetaData> Maps
@@ -83,6 +84,15 @@ namespace BizTalkComponents.PipelineComponents
             set { _parameters = value; }
         }
 
+        [DisplayName("Map Required")]
+        [Description("Must Map Be Specified")]
+        [DefaultValue(true)]
+        public bool MapRequired
+        {
+            get { return _mapRequired; }
+            set { _mapRequired = value; }
+        }
+
         #region IComponent Members
 
         public IBaseMessage Execute(IPipelineContext pContext, IBaseMessage pInMsg)
@@ -120,16 +130,23 @@ namespace BizTalkComponents.PipelineComponents
 
             if (string.IsNullOrEmpty(_mapName))
             {
-                throw new ArgumentNullException("MapName");
+                if(_mapRequired)
+                {
+                    throw new ArgumentNullException("MapName");
+                }
+                else {
+                    return pInMsg;
+                }
+               
             }
             else
             {
                 MarkableForwardOnlyEventingReadStream stream =
                        new MarkableForwardOnlyEventingReadStream(
                            pInMsg.BodyPart.GetOriginalDataStream());
-                
+
                 string messageType = (string)pInMsg.Context.Read("MessageType", _systemPropertiesNamespace);
-                 
+
                 string schemaStrongName = null;
                 ContextProperty property = new ContextProperty("MessageType", _systemPropertiesNamespace);
 
@@ -138,26 +155,26 @@ namespace BizTalkComponents.PipelineComponents
                     stream.MarkPosition();
                     //Thanks to http://maximelabelle.wordpress.com/2010/07/08/determining-the-type-of-an-xml-message-in-a-custom-pipeline-component/
                     messageType = Microsoft.BizTalk.Streaming.Utils.GetDocType(stream);
-                    
+
                     stream.ResetPosition();
 
-                    
+
                 }
                 else if ((schemaStrongName = (string)pInMsg.Context.Read("SchemaStrongName", _systemPropertiesNamespace)) != null)
                 {
                     //In cases where XmlDocument is used in orchestration, revert to check MessageType
-                    if(schemaStrongName.StartsWith("Microsoft.XLANGs.BaseTypes.Any") == false)
+                    if (schemaStrongName.StartsWith("Microsoft.XLANGs.BaseTypes.Any") == false)
                     {
                         property = new ContextProperty("SchemaStrongName", _systemPropertiesNamespace);
                         messageType = schemaStrongName;
                     }
-                   
 
-                    
+
+
                 }
 
 
-                TransformMetaData _map = FindFirstMapMatch(property,messageType);
+                TransformMetaData _map = FindFirstMapMatch(property, messageType);
 
                 if (_map == null)
                 {
@@ -358,6 +375,7 @@ namespace BizTalkComponents.PipelineComponents
         {
             _mapName = PropertyBagHelper.ReadPropertyBag(pb,"MapName", _mapName);
             _parameters = PropertyBagHelper.ReadPropertyBag(pb, "Parameters", _parameters);
+            _mapRequired = PropertyBagHelper.ReadPropertyBag(pb, "MapRequired", _mapRequired);
         }
 
         /// <summary>
@@ -370,7 +388,8 @@ namespace BizTalkComponents.PipelineComponents
         {
             PropertyBagHelper.WritePropertyBag(pb, "MapName", _mapName);
             PropertyBagHelper.WritePropertyBag(pb, "Parameters", _parameters);
-            
+            PropertyBagHelper.WritePropertyBag(pb, "MapRequired", _mapRequired);
+
         }
        
     }
