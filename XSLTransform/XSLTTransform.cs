@@ -34,7 +34,9 @@ namespace BizTalkComponents.PipelineComponents
         //Added Map cache
         public static ConcurrentDictionary<string,TransformMetaData> maps = null;
 
-       // private PortDirection m_portDirection;
+        public static ConcurrentDictionary<string, TransformMetaData> dynamiMaps = null;
+
+        // private PortDirection m_portDirection;
 
         private string _mapName = String.Empty;
         private string _parameters = String.Empty;
@@ -42,6 +44,18 @@ namespace BizTalkComponents.PipelineComponents
         private bool _mapRequired = true;
 
         private const string _systemPropertiesNamespace = "http://schemas.microsoft.com/BizTalk/2003/system-properties";
+
+        private ConcurrentDictionary<string, TransformMetaData> DynamicMaps
+        {
+
+            get
+            {
+                if (dynamiMaps == null)
+                    dynamiMaps = new ConcurrentDictionary<string, TransformMetaData>();
+
+                return dynamiMaps;
+            }
+        }
 
         private ConcurrentDictionary<string,TransformMetaData> Maps
         {
@@ -173,8 +187,8 @@ namespace BizTalkComponents.PipelineComponents
 
                 }
 
-
-                TransformMetaData _map = FindFirstMapMatch(property, messageType);
+              
+                TransformMetaData _map = FindFirstMapMatch(property, messageType, map);
 
                 if (_map == null)
                 {
@@ -193,6 +207,8 @@ namespace BizTalkComponents.PipelineComponents
             return pInMsg;
         }
 
+        
+
         private string GetTransform(IBaseMessageContext context)
         {
             for (int i = 0; i < context.CountProperties; i++)
@@ -204,6 +220,7 @@ namespace BizTalkComponents.PipelineComponents
 
                 if(name == "XSLTransform")
                 {
+                    context.Write(name, ns, null);//Remove context as we do not want it to interfere
                     return (string)obj;
                     
                 }
@@ -231,6 +248,59 @@ namespace BizTalkComponents.PipelineComponents
                 }
             }
 
+        }
+
+       
+        internal TransformMetaData FindFirstMapMatch(ContextProperty property, string value, string dynamicMap)
+        {
+           
+            if(dynamicMap == null)
+                return FindFirstMapMatch(property, value);
+
+            TransformMetaData mapMatch = null;
+
+            if (DynamicMaps.ContainsKey(dynamicMap))
+                return DynamicMaps[dynamicMap];
+
+            try
+            {
+
+                Type mapType = Type.GetType(dynamicMap, true);
+
+                mapMatch = TransformMetaData.For(mapType);
+
+                SchemaMetadata sourceSchema = mapMatch.SourceSchemas[0];
+
+                if (property.PropertyName == "SchemaStrongName")
+                {
+
+                    if (sourceSchema.ReflectedType.AssemblyQualifiedName == value)
+                    {
+                        DynamicMaps.TryAdd(value, mapMatch);
+                        return mapMatch;
+
+
+                    }
+
+                }
+                else if (property.PropertyName == "MessageType" && sourceSchema.SchemaName == value)
+                {
+                    DynamicMaps.TryAdd(value, mapMatch);
+                    return mapMatch;
+                }
+
+                mapMatch = null;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException(string.Format("Error while trying to load MapType specification: {0}", dynamicMap), ex);
+            }
+
+
+            //If context specified map is not found
+            return FindFirstMapMatch(property, value);
         }
 
         internal TransformMetaData FindFirstMapMatch(ContextProperty property, string value)
