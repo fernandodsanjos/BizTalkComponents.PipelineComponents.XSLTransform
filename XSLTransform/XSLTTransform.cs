@@ -32,7 +32,7 @@ namespace BizTalkComponents.PipelineComponents
     {
         public static ConcurrentDictionary<TransformMetaData, BTSXslTransform> transforms = null;
         //Added Map cache
-        public static ConcurrentDictionary<string,TransformMetaData> maps = null;
+        public static ConcurrentDictionary<string, ConcurrentDictionary<string,TransformMetaData>> maps = null;
 
         public static ConcurrentDictionary<string, TransformMetaData> dynamiMaps = null;
 
@@ -57,13 +57,13 @@ namespace BizTalkComponents.PipelineComponents
             }
         }
 
-        private ConcurrentDictionary<string,TransformMetaData> Maps
+        private ConcurrentDictionary<string, ConcurrentDictionary<string, TransformMetaData>> Maps
         {
 
             get
             {
                 if (maps == null)
-                    maps = new ConcurrentDictionary<string,TransformMetaData>();
+                    maps = new ConcurrentDictionary<string, ConcurrentDictionary<string, TransformMetaData>>();
 
                 return maps;
             }
@@ -128,7 +128,7 @@ namespace BizTalkComponents.PipelineComponents
             //Specify dynamic map in any context with the name XSLTransform
             string map = GetTransform(pInMsg.Context);
 
-            if (map != null)
+            if (string.IsNullOrEmpty(map) == false)
             {
                 if (string.IsNullOrEmpty(_mapName))
                 {
@@ -188,7 +188,7 @@ namespace BizTalkComponents.PipelineComponents
                 }
 
               
-                TransformMetaData _map = FindFirstMapMatch(property, messageType, map);
+                TransformMetaData _map = FindFirstMapMatch(property, messageType);
 
                 if (_map == null)
                 {
@@ -251,65 +251,78 @@ namespace BizTalkComponents.PipelineComponents
         }
 
        
-        internal TransformMetaData FindFirstMapMatch(ContextProperty property, string value, string dynamicMap)
-        {
+        //internal TransformMetaData FindFirstMapMatch(ContextProperty property, string value, string dynamicMap)
+        //{
            
-            if(dynamicMap == null)
-                return FindFirstMapMatch(property, value);
+        //    if(String.IsNullOrWhiteSpace(dynamicMap))
+        //        return FindFirstMapMatch(property, value);
 
-            TransformMetaData mapMatch = null;
+        //    TransformMetaData mapMatch = null;
 
-            if (DynamicMaps.ContainsKey(dynamicMap))
-                return DynamicMaps[dynamicMap];
+        //    if (DynamicMaps.ContainsKey(dynamicMap))
+        //        return DynamicMaps[dynamicMap];
 
-            try
-            {
+        //    try
+        //    {
 
-                Type mapType = Type.GetType(dynamicMap, true);
+        //        Type mapType = Type.GetType(dynamicMap, true);
 
-                mapMatch = TransformMetaData.For(mapType);
+        //        mapMatch = TransformMetaData.For(mapType);
 
-                SchemaMetadata sourceSchema = mapMatch.SourceSchemas[0];
+        //        SchemaMetadata sourceSchema = mapMatch.SourceSchemas[0];
 
-                if (property.PropertyName == "SchemaStrongName")
-                {
+        //        if (property.PropertyName == "SchemaStrongName")
+        //        {
 
-                    if (sourceSchema.ReflectedType.AssemblyQualifiedName == value)
-                    {
-                        DynamicMaps.TryAdd(value, mapMatch);
-                        return mapMatch;
-
-
-                    }
-
-                }
-                else if (property.PropertyName == "MessageType" && sourceSchema.SchemaName == value)
-                {
-                    DynamicMaps.TryAdd(value, mapMatch);
-                    return mapMatch;
-                }
-
-                mapMatch = null;
-
-            }
-            catch (Exception ex)
-            {
-
-                throw new ApplicationException(string.Format("Error while trying to load MapType specification: {0}", dynamicMap), ex);
-            }
+        //            if (sourceSchema.ReflectedType.AssemblyQualifiedName == value)
+        //            {
+        //                DynamicMaps.TryAdd(value, mapMatch);
+        //                return mapMatch;
 
 
-            //If context specified map is not found
-            return FindFirstMapMatch(property, value);
-        }
+        //            }
+
+        //        }
+        //        else if (property.PropertyName == "MessageType" && sourceSchema.SchemaName == value)
+        //        {
+        //            DynamicMaps.TryAdd(value, mapMatch);
+        //            return mapMatch;
+        //        }
+
+        //        mapMatch = null;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        throw new ApplicationException(string.Format("Error while trying to load MapType specification: {0}", dynamicMap), ex);
+        //    }
+
+
+        //    //If context specified map is not found
+        //    return FindFirstMapMatch(property, value);
+        //}
 
         internal TransformMetaData FindFirstMapMatch(ContextProperty property, string value)
         {
             string[] mapsArray = _mapName.Split(new char[] { '|' }, StringSplitOptions.None);
             TransformMetaData mapMatch = null;
 
+            //Check Cache
             if (Maps.ContainsKey(value))
-                return Maps[value];
+            {
+                for (int i = 0; i < mapsArray.Length; i++)
+                {
+                    if(Maps[value].TryGetValue(mapsArray[i], out mapMatch) == true)
+                        return mapMatch;
+                }
+
+            }
+            else
+            {
+                //Add cache for this messagetype
+                Maps.TryAdd(value,new ConcurrentDictionary<string, TransformMetaData>());
+            }
 
             //Check MapCache
             for (int i = 0; i < mapsArray.Length; i++)
@@ -333,14 +346,14 @@ namespace BizTalkComponents.PipelineComponents
 
                         if(sourceSchema.ReflectedType.AssemblyQualifiedName == value)
                         {
-                            Maps.TryAdd(value, mapMatch);
+                            Maps[value].TryAdd(mapsArray[i], mapMatch);
                             break;
                         }
                         
                     }
                     else if(property.PropertyName == "MessageType" && sourceSchema.SchemaName == value)
                     {
-                        Maps.TryAdd(value, mapMatch);
+                        Maps[value].TryAdd(mapsArray[i], mapMatch);
                         break;
                     }
 
