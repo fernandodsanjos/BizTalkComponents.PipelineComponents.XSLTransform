@@ -159,33 +159,45 @@ namespace BizTalkComponents.PipelineComponents
                        new MarkableForwardOnlyEventingReadStream(
                            pInMsg.BodyPart.GetOriginalDataStream());
 
-                string messageType = (string)pInMsg.Context.Read("MessageType", _systemPropertiesNamespace);
-
+                
                 string schemaStrongName = null;
-                ContextProperty property = new ContextProperty("MessageType", _systemPropertiesNamespace);
+                string messageType = null;
+                ContextProperty property = null;
 
-                if (messageType == null)//2018-02-17 Removed String.Empty
+                if ((schemaStrongName = (string)pInMsg.Context.Read("SchemaStrongName", _systemPropertiesNamespace)) != null)
                 {
+                    if(schemaStrongName.StartsWith("Microsoft.XLANGs.BaseTypes.Any") == false)
+                    {
+                        property = new ContextProperty("SchemaStrongName", _systemPropertiesNamespace);
+                        messageType = schemaStrongName;
+                    }
+               
+                }
+
+                if (messageType == null)
+                {
+                    messageType = (string)pInMsg.Context.Read("MessageType", _systemPropertiesNamespace);
+
+                    //In cases where XmlDocument is used in orchestration, revert to check MessageType
+                    property = new ContextProperty("MessageType", _systemPropertiesNamespace);
+
+                }
+
+                if (messageType == null)
+                {
+                    
+                    property = new ContextProperty("MessageType", _systemPropertiesNamespace);
                     stream.MarkPosition();
                     //Thanks to http://maximelabelle.wordpress.com/2010/07/08/determining-the-type-of-an-xml-message-in-a-custom-pipeline-component/
                     messageType = Microsoft.BizTalk.Streaming.Utils.GetDocType(stream);
 
                     stream.ResetPosition();
-
-
                 }
-                else if ((schemaStrongName = (string)pInMsg.Context.Read("SchemaStrongName", _systemPropertiesNamespace)) != null)
-                {
-                    //In cases where XmlDocument is used in orchestration, revert to check MessageType
-                    if (schemaStrongName.StartsWith("Microsoft.XLANGs.BaseTypes.Any") == false)
-                    {
-                        property = new ContextProperty("SchemaStrongName", _systemPropertiesNamespace);
-                        messageType = schemaStrongName;
-                    }
+               
 
 
 
-                }
+                
 
               
                 TransformMetaData _map = FindFirstMapMatch(property, messageType);

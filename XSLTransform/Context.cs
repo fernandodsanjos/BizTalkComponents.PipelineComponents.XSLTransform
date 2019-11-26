@@ -41,20 +41,20 @@ namespace BizTalkComponents.PipelineComponents
             return property == null ? String.Empty : property.ToString();
         }
 
-        public void Write(string name, string ns,string value)
+        public void Write(string name, string ns,object value)
         {
-            if (String.IsNullOrEmpty(value) || String.IsNullOrEmpty(name) || String.IsNullOrEmpty(ns) )
+            if (value == null || String.IsNullOrEmpty(name) || String.IsNullOrEmpty(ns) )
                 return;
 
-            context.Write(name, ns, (object)value);
+            context.Write(name, ns, value);
         }
 
-        public void Promote(string name, string ns, string value)
+        public void Promote(string name, string ns, object value)
         {
-            if (String.IsNullOrEmpty(value) || String.IsNullOrEmpty(name) || String.IsNullOrEmpty(ns))
+            if (value == null || String.IsNullOrEmpty(name) || String.IsNullOrEmpty(ns))
                 return;
 
-            context.Promote(name, ns, (object)value);
+            context.Promote(name, ns, value);
           
         }
     }
