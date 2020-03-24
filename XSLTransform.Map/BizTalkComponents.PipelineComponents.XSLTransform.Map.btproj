@@ -59,10 +59,6 @@
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BizTalkComponents.PipelineComponents.XSLTransform.Schema, Version=1.0.0.0, Culture=neutral, PublicKeyToken=47190f56632fbc76, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\BizTalkComponents.PipelineComponents.XSLTransform.Schema\v4.0_1.0.0.0__47190f56632fbc76\BizTalkComponents.PipelineComponents.XSLTransform.Schema.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -92,23 +88,28 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Map Include="Map To Map.btm">
+    <Map Include="Include\Map To Map.btm">
       <TypeName>XSLTransform_Map_To_Map</TypeName>
       <Namespace>BizTalkComponents.PipelineComponents</Namespace>
       <SubType>Task</SubType>
     </Map>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="inputfile.xml" />
+    <Content Include="Include\inputfile.xml" />
+    <Map Include="Item_To_Item.btm">
+      <TypeName>Item_To_Item</TypeName>
+      <Namespace>BizTalkComponents.PipelineComponents</Namespace>
+      <SubType>Task</SubType>
+    </Map>
     <Map Include="Map To Map - simple.btm">
       <SubType>Task</SubType>
       <TypeName>Map_To_Map_simple</TypeName>
       <Namespace>BizTalkComponents.PipelineComponents</Namespace>
     </Map>
-    <Content Include="test-include.xsl">
+    <Content Include="Include\test-include.xsl">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Map To Map.xsl">
+    <Content Include="Include\Map To Map.xsl">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
@@ -126,6 +127,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XSLTransform.Schema\BizTalkComponents.PipelineComponents.XSLTransform.Schema.btproj">
+      <Project>{65f754c1-e44d-424f-9f3b-0dfe76ebc230}</Project>
+      <Name>BizTalkComponents.PipelineComponents.XSLTransform.Schema</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\BizTalk\BizTalkC.targets" />

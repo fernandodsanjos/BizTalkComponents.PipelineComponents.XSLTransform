@@ -35,6 +35,8 @@ namespace BizTalkComponents.PipelineComponents {
   </xsl:template>
 </xsl:stylesheet>";
         
+        private const int _useXSLTransform = 0;
+        
         private const string _strArgList = @"<ExtensionObjects />";
         
         private const string _strSrcSchemasList0 = @"BizTalkComponents.PipelineComponents.Schema_Transform_Source";
@@ -48,6 +50,12 @@ namespace BizTalkComponents.PipelineComponents {
         public override string XmlContent {
             get {
                 return _strMap;
+            }
+        }
+        
+        public override int UseXSLTransform {
+            get {
+                return _useXSLTransform;
             }
         }
         

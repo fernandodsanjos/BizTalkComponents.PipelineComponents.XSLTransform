@@ -31,22 +31,24 @@ namespace BizTalkComponents.PipelineComponents.Receive
 "           </Property>            <Property Name=\"RecoverableInterchangeProcessing\">              <V"+
 "alue xsi:type=\"xsd:boolean\">false</Value>            </Property>            <Property Name=\"HiddenPr"+
 "operties\">              <Value xsi:type=\"xsd:string\">EnvelopeSpecTargetNamespaces,DocumentSpecTarget"+
-"Namespaces</Value>            </Property>          </Properties>          <CachedDisplayName>XML dis"+
-"assembler</CachedDisplayName>          <CachedIsManaged>true</CachedIsManaged>        </Component>  "+
-"    </Components>    </Stage>    <Stage>      <PolicyFileStage _locAttrData=\"Name\" _locID=\"3\" Name=\""+
-"Validate\" minOccurs=\"0\" maxOccurs=\"-1\" execMethod=\"All\" stageId=\"9d0e410d-4cce-4536-83fa-4a5040674ad"+
-"6\" />      <Components>        <Component>          <Name>BizTalkComponents.PipelineComponents.XSLTT"+
-"ransform,BizTalkComponents.PipelineComponents.XSLTransform, Version=1.0.0.1, Culture=neutral, Public"+
-"KeyToken=47190f56632fbc76</Name>          <ComponentName>XSLT Transformation</ComponentName>        "+
-"  <Description>Pipeline Component to apply BizTalk map with context as argument.</Description>      "+
-"    <Version>1.0.0</Version>          <Properties>            <Property Name=\"MapName\" />           "+
-" <Property Name=\"Parameters\" />          </Properties>          <CachedDisplayName>XSLT Transformati"+
-"on</CachedDisplayName>          <CachedIsManaged>true</CachedIsManaged>        </Component>      </C"+
-"omponents>    </Stage>    <Stage>      <PolicyFileStage _locAttrData=\"Name\" _locID=\"4\" Name=\"Resolve"+
-"Party\" minOccurs=\"0\" maxOccurs=\"-1\" execMethod=\"All\" stageId=\"9d0e410e-4cce-4536-83fa-4a5040674ad6\" "+
-"/>      <Components />    </Stage>  </Stages></Document>";
+"Namespaces</Value>            </Property>            <Property Name=\"DtdProcessing\">              <V"+
+"alue xsi:type=\"xsd:string\" />            </Property>          </Properties>          <CachedDisplayN"+
+"ame>XML disassembler</CachedDisplayName>          <CachedIsManaged>true</CachedIsManaged>        </C"+
+"omponent>      </Components>    </Stage>    <Stage>      <PolicyFileStage _locAttrData=\"Name\" _locID"+
+"=\"3\" Name=\"Validate\" minOccurs=\"0\" maxOccurs=\"-1\" execMethod=\"All\" stageId=\"9d0e410d-4cce-4536-83fa-"+
+"4a5040674ad6\" />      <Components>        <Component>          <Name>BizTalkComponents.PipelineCompo"+
+"nents.XSLTTransform,BizTalkComponents.PipelineComponents.XSLTransform, Version=1.1.0.1, Culture=neut"+
+"ral, PublicKeyToken=47190f56632fbc76</Name>          <ComponentName>XSLT Transformation</ComponentNa"+
+"me>          <Description>Pipeline Component to apply BizTalk map with context as argument.</Descrip"+
+"tion>          <Version>1.0.0</Version>          <Properties>            <Property Name=\"MapName\" />"+
+"            <Property Name=\"Parameters\" />            <Property Name=\"MapRequired\">              <Va"+
+"lue xsi:type=\"xsd:boolean\">false</Value>            </Property>          </Properties>          <Cac"+
+"hedDisplayName>XSLT Transformation</CachedDisplayName>          <CachedIsManaged>true</CachedIsManag"+
+"ed>        </Component>      </Components>    </Stage>    <Stage>      <PolicyFileStage _locAttrData"+
+"=\"Name\" _locID=\"4\" Name=\"ResolveParty\" minOccurs=\"0\" maxOccurs=\"-1\" execMethod=\"All\" stageId=\"9d0e41"+
+"0e-4cce-4536-83fa-4a5040674ad6\" />      <Components />    </Stage>  </Stages></Document>";
         
-        private const string _versionDependentGuid = "33702af5-4b93-4577-9c6d-f233a4d159ea";
+        private const string _versionDependentGuid = "0020dedd-c04c-4bfc-9044-724c6bad9076";
         
         public XSLTransform()
         {
@@ -64,18 +66,20 @@ namespace BizTalkComponents.PipelineComponents.Receive
 "     <Value xsi:type=\"xsd:boolean\">false</Value>    </Property>    <Property Name=\"RecoverableInterc"+
 "hangeProcessing\">      <Value xsi:type=\"xsd:boolean\">false</Value>    </Property>    <Property Name="+
 "\"HiddenProperties\">      <Value xsi:type=\"xsd:string\">EnvelopeSpecTargetNamespaces,DocumentSpecTarge"+
-"tNamespaces</Value>    </Property>  </Properties></PropertyBag>";
+"tNamespaces</Value>    </Property>    <Property Name=\"DtdProcessing\">      <Value xsi:type=\"xsd:stri"+
+"ng\" />    </Property>  </Properties></PropertyBag>";
                 PropertyBag pb = PropertyBag.DeserializeFromXml(comp0XmlProperties);;
                 ((IPersistPropertyBag)(comp0)).Load(pb, 0);
             }
             this.AddComponent(stage, comp0);
             stage = this.AddStage(new System.Guid("9d0e410d-4cce-4536-83fa-4a5040674ad6"), Microsoft.BizTalk.PipelineOM.ExecutionMode.all);
-            IBaseComponent comp1 = Microsoft.BizTalk.PipelineOM.PipelineManager.CreateComponent("BizTalkComponents.PipelineComponents.XSLTTransform,BizTalkComponents.PipelineComponents.XSLTransform, Version=1.0.0.1, Culture=neutral, PublicKeyToken=47190f56632fbc76");;
+            IBaseComponent comp1 = Microsoft.BizTalk.PipelineOM.PipelineManager.CreateComponent("BizTalkComponents.PipelineComponents.XSLTTransform,BizTalkComponents.PipelineComponents.XSLTransform, Version=1.1.0.1, Culture=neutral, PublicKeyToken=47190f56632fbc76");;
             if (comp1 is IPersistPropertyBag)
             {
                 string comp1XmlProperties = "<?xml version=\"1.0\" encoding=\"utf-16\"?><PropertyBag xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-inst"+
 "ance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">  <Properties>    <Property Name=\"MapName\" />    "+
-"<Property Name=\"Parameters\" />  </Properties></PropertyBag>";
+"<Property Name=\"Parameters\" />    <Property Name=\"MapRequired\">      <Value xsi:type=\"xsd:boolean\">f"+
+"alse</Value>    </Property>  </Properties></PropertyBag>";
                 PropertyBag pb = PropertyBag.DeserializeFromXml(comp1XmlProperties);;
                 ((IPersistPropertyBag)(comp1)).Load(pb, 0);
             }

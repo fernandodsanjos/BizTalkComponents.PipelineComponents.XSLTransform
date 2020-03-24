@@ -193,13 +193,7 @@ namespace BizTalkComponents.PipelineComponents
 
                     stream.ResetPosition();
                 }
-               
 
-
-
-                
-
-              
                 TransformMetaData _map = FindFirstMapMatch(property, messageType);
 
                 if (_map == null)
@@ -418,10 +412,12 @@ namespace BizTalkComponents.PipelineComponents
                 args.AddExtensionObject("urn:schemas-microsoft-com:xslt", ext);
 
                 AddParameters(args);
-                
+
                 //2017-08-23 Added intermidiate stream as Transform kills the original stream,
                 //this is a problem if the incomming message is a enveloped message.
-                XmlTranslatorStream stm = new XmlTranslatorStream(XmlReader.Create(inputStream));
+                // XmlTranslatorStream stm = new XmlTranslatorStream(XmlReader.Create(inputStream));
+                //Opted to use non disposable stream instead
+                NonDisposableStream stm = new NonDisposableStream(inputStream);
                 VirtualStream outputStream = new VirtualStream(VirtualStream.MemoryFlag.AutoOverFlowToDisk);
 
                 //TODO test to add declaration and see what happens with params!!!!!!!!!!!!!!!!!!!!!!!!

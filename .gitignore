@@ -33,6 +33,8 @@ x64/
 *.obj
 *.pch
 *.pdb
+*.dll
+*.exe
 *.pgc
 *.pgd
 *.rsp

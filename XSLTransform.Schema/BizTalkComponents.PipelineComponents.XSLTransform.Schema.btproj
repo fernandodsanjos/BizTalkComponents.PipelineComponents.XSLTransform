@@ -102,6 +102,16 @@
     </Schema>
   </ItemGroup>
   <ItemGroup>
+    <Schema Include="Envelope\envelope.xsd">
+      <TypeName>envelope</TypeName>
+      <Namespace>BizTalkComponents.PipelineComponents.Envelope</Namespace>
+      <SubType>Task</SubType>
+    </Schema>
+    <Schema Include="Envelope\item.xsd">
+      <TypeName>item</TypeName>
+      <Namespace>BizTalkComponents.PipelineComponents.Envelope</Namespace>
+      <SubType>Task</SubType>
+    </Schema>
     <None Include="Key.snk" />
   </ItemGroup>
   <ItemGroup>
