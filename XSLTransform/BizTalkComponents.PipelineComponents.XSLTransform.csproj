@@ -94,7 +94,9 @@
     <Compile Include="XSLTTransform.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="BizTalkComponents.PipelineComponents.XSLTransform.nuspec" />
+    <None Include="BizTalkComponents.PipelineComponents.XSLTransform.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Files\README.md" />
     <None Include="Key.snk" />
   </ItemGroup>

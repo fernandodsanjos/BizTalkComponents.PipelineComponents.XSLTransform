@@ -99,7 +99,7 @@ namespace BizTalkComponents.PipelineComponents
         }
 
         [DisplayName("Map Required")]
-        [Description("Must Map Be Specified")]
+        [Description("At least one map must match")]
         [DefaultValue(true)]
         public bool MapRequired
         {
@@ -445,7 +445,8 @@ namespace BizTalkComponents.PipelineComponents
                 outputStream.Seek(0, SeekOrigin.Begin);
 
                 pInMsg.Context.Promote("MessageType", _systemPropertiesNamespace, targetSchema.SchemaName);
-                pInMsg.Context.Promote("SchemaStrongName", _systemPropertiesNamespace, targetSchema.ReflectedType.AssemblyQualifiedName);
+                //Changed to Write as SchemaStrongName could exceed 255 chars
+                pInMsg.Context.Write("SchemaStrongName", _systemPropertiesNamespace, targetSchema.ReflectedType.AssemblyQualifiedName);
                 //pInMsg.MessageID.ToString()
                 
                
