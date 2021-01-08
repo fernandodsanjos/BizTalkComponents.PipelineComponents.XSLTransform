@@ -65,6 +65,7 @@ So all you have to do is make sure that the include file is imported in the same
 5. **Dynamic Map**<br/>
 You can use dynamic map usage by specifying a specific map, in the form of fulll qualified name, in a context property called XLSTransform. The component picks the first property with this name.
 The default is that a map i required but you can also set the property Map Required to False. Setting the property to false means that if no map is specified the message will simply be passed forward.<br/>
+When dynamic map is used,context <i>PipelineComponents.XSLTransform#XSLTransform</i>, is written containing fully qualified name of the map used.<br/>
 Tip: _You can specify a default map and override it with the context property XLSTransform, as the context property XLSTransform will be added to the top of the list of maps to evaluate_
 
 ## Limitations

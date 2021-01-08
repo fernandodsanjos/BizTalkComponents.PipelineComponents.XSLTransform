@@ -42,6 +42,7 @@ namespace BizTalkComponents.PipelineComponents
         private string _parameters = String.Empty;
         private string pipelineAssembly = String.Empty;
         private bool _mapRequired = true;
+        private bool _dynamicMap = false;
 
         private const string _systemPropertiesNamespace = "http://schemas.microsoft.com/BizTalk/2003/system-properties";
 
@@ -130,6 +131,8 @@ namespace BizTalkComponents.PipelineComponents
 
             if (string.IsNullOrEmpty(map) == false)
             {
+                _dynamicMap = true;
+
                 if (string.IsNullOrEmpty(_mapName))
                 {
                     _mapName = map;
@@ -444,7 +447,10 @@ namespace BizTalkComponents.PipelineComponents
                 btsXslTransform.Transform(stm, args, outputStream, null);
                 outputStream.Seek(0, SeekOrigin.Begin);
 
-                pInMsg.Context.Write("XSLTransform", "PipelineComponents.XSLTransform",map.AssemblyQualifiedName);
+                
+
+                if (_dynamicMap)
+                    pInMsg.Context.Write("XSLTransform", "PipelineComponents.XSLTransform",map.AssemblyQualifiedName);
 
                 pInMsg.Context.Promote("MessageType", _systemPropertiesNamespace, targetSchema.SchemaName);
                 //Changed to Write as SchemaStrongName could exceed 255 chars

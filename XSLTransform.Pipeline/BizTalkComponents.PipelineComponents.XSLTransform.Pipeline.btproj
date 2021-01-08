@@ -59,10 +59,11 @@
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BizTalkComponents.PipelineComponents.XSLTransform, Version=1.1.0.6, Culture=neutral, PublicKeyToken=47190f56632fbc76, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\BizTalkComponents.PipelineComponents.XSLTransform\v4.0_1.1.0.1__47190f56632fbc76\BizTalkComponents.PipelineComponents.XSLTransform.dll</HintPath>
+    <Reference Include="BizTalk.PipelineComponents.WriteTypedContext, Version=1.0.0.0, Culture=neutral, PublicKeyToken=2dbe33dac94b8972, processorArchitecture=MSIL">
+      <HintPath>..\packages\BizTalk.PipelineComponents.WriteTypedContext.1.0.0\lib\net45\BizTalk.PipelineComponents.WriteTypedContext.dll</HintPath>
+      <Private>True</Private>
     </Reference>
+    <Reference Include="BizTalkComponents.PipelineComponents.XSLTransform, Version=1.1.0.10, Culture=neutral, PublicKeyToken=47190f56632fbc76, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.BizTalk.Pipeline.Components, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System">
       <Name>System</Name>
@@ -94,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Pipeline Include="Receive\XSLTransform.btp">
