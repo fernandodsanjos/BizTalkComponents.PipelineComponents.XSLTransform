@@ -342,7 +342,7 @@ namespace BizTalkComponents.PipelineComponents
                     Type mapType = Type.GetType(mapsArray[i], true);
 
                     mapMatch = TransformMetaData.For(mapType);
-                    
+                   
                     SchemaMetadata sourceSchema = mapMatch.SourceSchemas[0];
 
                     
@@ -443,6 +443,8 @@ namespace BizTalkComponents.PipelineComponents
 
                 btsXslTransform.Transform(stm, args, outputStream, null);
                 outputStream.Seek(0, SeekOrigin.Begin);
+
+                pInMsg.Context.Write("XSLTransform", "PipelineComponents.XSLTransform",map.AssemblyQualifiedName);
 
                 pInMsg.Context.Promote("MessageType", _systemPropertiesNamespace, targetSchema.SchemaName);
                 //Changed to Write as SchemaStrongName could exceed 255 chars

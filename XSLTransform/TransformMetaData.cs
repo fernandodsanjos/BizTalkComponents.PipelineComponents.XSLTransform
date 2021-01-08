@@ -13,11 +13,26 @@ namespace BizTalkComponents.PipelineComponents
         private static MetadataCache _transforms = new MetadataCache(new MetadataCreator(TransformMetaData._creator));
         private readonly XmlDeclaration _xmlDecl;
         private readonly TransformBase _transformBase;
-       
+
+        private Type _mapType = null;
         private SchemaMetadata[] _sourceSchemas;
         private SchemaMetadata[] _targetSchemas;
         private string mapAssembly = String.Empty;
 
+
+        /// <summary>
+        /// Full assembly-qualifiedname of the map
+        /// </summary>
+        public string AssemblyQualifiedName
+        {
+
+            get
+            {
+                return _mapType.AssemblyQualifiedName;
+            }
+
+        }
+        
         /// <summary>
         /// Assembly of the map
         /// </summary>
@@ -92,7 +107,7 @@ namespace BizTalkComponents.PipelineComponents
         {
             this.mapAssembly = transformBaseType.Assembly.ToString();
             this._transformBase = (TransformBase)Activator.CreateInstance(transformBaseType);
-            
+            this._mapType = transformBaseType;
             this._xmlDecl = TransformMetaData._getXmlDeclaration(this._transformBase);
 
         }
