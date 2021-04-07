@@ -99,7 +99,7 @@ namespace BizTalkComponents.PipelineComponents
 
         public bool Equals(TransformMetaData obj)
         {
-            return obj != null && obj.SourceSchemas[0] == this.SourceSchemas[0];
+            return obj != null && obj.AssemblyQualifiedName == this.AssemblyQualifiedName;
         }
 
 
