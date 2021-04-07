@@ -6,7 +6,7 @@
     <authors>Fernando Pires</authors>
 	<projectUrl>https://github.com/fernandodsanjos/BizTalkComponents.PipelineComponents.XSLTransform</projectUrl>
     <description>BizTalkComponents.PipelineComponents.XSLTransform</description>
-	<releaseNotes>FIXED a caching bug regarding </releaseNotes>
+	<releaseNotes>FIXED a caching bug regarding TransformMetaData</releaseNotes>
   </metadata>
   <files>
     <file src="bin\Debug\BizTalkComponents.PipelineComponents.XSLTransform.dll" target="lib\net45" />
