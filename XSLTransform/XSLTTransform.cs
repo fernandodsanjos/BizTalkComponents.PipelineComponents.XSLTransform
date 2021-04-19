@@ -31,10 +31,11 @@ namespace BizTalkComponents.PipelineComponents
     public partial class XSLTTransform : IBaseComponent
     {
         public static ConcurrentDictionary<TransformMetaData, BTSXslTransform> transforms = null;
+
         //Added Map cache
         public static ConcurrentDictionary<string, ConcurrentDictionary<string,TransformMetaData>> maps = null;
 
-        public static ConcurrentDictionary<string, TransformMetaData> dynamiMaps = null;
+      
 
         // private PortDirection m_portDirection;
 
@@ -46,17 +47,7 @@ namespace BizTalkComponents.PipelineComponents
 
         private const string _systemPropertiesNamespace = "http://schemas.microsoft.com/BizTalk/2003/system-properties";
 
-        private ConcurrentDictionary<string, TransformMetaData> DynamicMaps
-        {
-
-            get
-            {
-                if (dynamiMaps == null)
-                    dynamiMaps = new ConcurrentDictionary<string, TransformMetaData>();
-
-                return dynamiMaps;
-            }
-        }
+       
 
         private ConcurrentDictionary<string, ConcurrentDictionary<string, TransformMetaData>> Maps
         {
@@ -81,6 +72,7 @@ namespace BizTalkComponents.PipelineComponents
                 return transforms;
             }
         }
+
         /// <summary>
         /// One or more piped Map specification to be applied to original message.
         /// </summary>	
@@ -375,7 +367,7 @@ namespace BizTalkComponents.PipelineComponents
                 //TODO test to add declaration and see what happens with params!!!!!!!!!!!!!!!!!!!!!!!!
 
                 BTSXslTransform btsXslTransform = null;
-                string str = map.Assembly;
+               
                 if (Transforms.ContainsKey(map))
                 {
                     btsXslTransform = Transforms[map];
@@ -389,9 +381,6 @@ namespace BizTalkComponents.PipelineComponents
 
                     Transforms.TryAdd(map, btsXslTransform);
                 }
-
-
-                
 
                 btsXslTransform.Transform(stm, args, outputStream, null);
                 outputStream.Seek(0, SeekOrigin.Begin);
@@ -411,7 +400,7 @@ namespace BizTalkComponents.PipelineComponents
             }
             catch (Exception ex)
             {
-                throw new ApplicationException(string.Format("Error while trying to transform using MapType specification: {0}", _mapName), ex);
+                throw new ApplicationException($"Error while trying to transform using MapType specification: {_mapName}\nMap Assembly {map.AssemblyQualifiedName} used\nError {ex.Message}", ex);
             }
         }
 

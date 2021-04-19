@@ -89,7 +89,7 @@ namespace BizTalkComponents.PipelineComponents
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return this.AssemblyQualifiedName.GetHashCode();
         }
 
         public override bool Equals(object obj)
